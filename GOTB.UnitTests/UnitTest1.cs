@@ -9,6 +9,7 @@ using GoTB.WebUI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using GoTB.WebUI.HtmlHelpers;
+using GoTB.WebUI.Infrastructure;
 
 namespace GoTB.UnitTests
 {
@@ -78,11 +79,11 @@ namespace GoTB.UnitTests
                     new Character {Id = 5, Name = "P5", Price = 5}
                  }.AsQueryable());
             var controller = new HomeController(mock.Object);
-            var res = (CharactersListViewModel) controller.Index(2, FilterBy.PriceLessThenThree).Model;
+            var res = (CharactersListViewModel) controller.Index(1, FilterBy.PriceLessThenThree).Model;
             var array = res.Characters.ToArray();
             Assert.IsTrue(array.Length == 2);
-            Assert.AreEqual(array[0].Name, "P4");
-            Assert.AreEqual(array[1].Name, "P5");
+            Assert.AreEqual(array[0].Name, "P1");
+            Assert.AreEqual(array[1].Name, "P2");
         }
 
         [TestMethod]
@@ -106,6 +107,39 @@ namespace GoTB.UnitTests
             Assert.AreEqual(result.ToString(), @"<a href=""Page1"">1</a>"
                                                + @"<a class=""selected"" href=""Page2"">2</a>"
                                                + @"<a href=""Page3"">3</a>");
+        }
+
+        [TestMethod]
+        public void CartTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() {Points = 10};
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new Character[]
+                {
+                    new Character() {Id = 1, Price = 100},
+                    new Character() {Id = 2, Price = 4},
+                    new Character() {Id = 3, Price = 8},
+                    new Character() {Id = 4, Price = 2},
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Manage(1);
+            controller.Manage(2);
+            controller.Manage(3);
+            controller.Manage(4);
+
+            Assert.AreEqual(4, cart.Points);
+            Assert.AreEqual(2, cart.CharacterIds.Count);
+            Assert.IsTrue(cart.CharacterIds.Contains(2));
+            Assert.IsTrue(cart.CharacterIds.Contains(4));
         }
     }
 }
