@@ -31,7 +31,8 @@ namespace GoTB.WebUI
             
             //context.Database.Delete();
             //context.Database.CreateIfNotExists();
-            EFDbContext.CreateDefaultsValues(context);
+            if (!context.Characters.Any())
+                EFDbContext.CreateDefaultsValues(context);
             context.Characters.ToArray();
 
         }
