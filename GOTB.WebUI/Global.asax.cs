@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using GoTB.Domain.Concrete;
 using GoTB.WebUI.Infrastructure;
 
 namespace GoTB.WebUI
@@ -27,8 +28,10 @@ namespace GoTB.WebUI
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
             var context = new GoTB.Domain.Concrete.EFDbContext();
+            
             //context.Database.Delete();
             //context.Database.CreateIfNotExists();
+            EFDbContext.CreateDefaultsValues(context);
             context.Characters.ToArray();
 
         }

@@ -10,11 +10,11 @@
     <div>
         <h3>@character.Name</h3><br/>
         <p>
-            @*            @craracter.ImageName*@
+            <img src="@(GoTB.WebUI.Models.CharacterConstants.PathToImages + @character.ImageName)" alt="@character.Name"/>
             <div>
-                Возраст: @character.Age
-                @character.IsMan ? "Мужчина" : "Женщина"
-                @character.IsAlive ? "Еще пока что жив..." : "Умер"
+                Возраст: @character.Age<br/>
+                @(character.IsMan ? "Мужчина" : "Женщина") <br/>
+                @(character.IsAlive ? "Еще пока что жив..." : "Умер")<br/>
                 Стоимость: @character.Price
             </div>
         </p>
