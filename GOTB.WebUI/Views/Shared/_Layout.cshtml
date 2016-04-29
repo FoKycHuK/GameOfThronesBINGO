@@ -11,7 +11,9 @@
  <div class="title">Game of Thrones BINGO!</div>
  </div>
  <div id="categories">
- We will put something useful here later
+     @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
+     @Html.ActionLink("На главную", "Index", "Home") <br/>
+     @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
  </div>
  <div id="content">
  @RenderBody()

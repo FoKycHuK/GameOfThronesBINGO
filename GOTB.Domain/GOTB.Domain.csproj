@@ -50,6 +50,7 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EfCharacterRepository.cs" />
     <Compile Include="Entities\Character.cs" />
+    <Compile Include="Entities\Cart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

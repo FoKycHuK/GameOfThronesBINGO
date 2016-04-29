@@ -42,6 +42,7 @@ namespace GoTB.WebUI.Infrastructure
 //             }.AsQueryable());
 //            ninjectKernel.Bind<ICharacterRepository>().ToConstant(mock.Object);
             ninjectKernel.Bind<ICharacterRepository>().To<EfCharacterRepository>();
+            ninjectKernel.Bind<ICartProvider>().To<CartProvider>();
         }
     }
 }

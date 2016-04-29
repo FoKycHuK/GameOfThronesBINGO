@@ -1,0 +1,26 @@
+﻿@model GoTB.Domain.Entities.Character[]
+
+@{
+    ViewBag.Title = "Выбранные";
+}
+
+<h2>Информация о ваших голосах</h2>
+
+@ViewBag.Error
+<br />
+<br />
+Вы выбрали следующих персонажей в эту неделю:
+@foreach (var ch in @Model)
+{
+    <div>@ch.Name</div>
+    using (Html.BeginForm("Remove", "Cart"))
+    {
+         @Html.Hidden("id", ch.Id);
+         <input type="submit" value="Убрать" />
+    }
+}
+
+@using (@Html.BeginForm("Submit"))
+{
+    <input type="submit" value="Подтвердить!" />
+}

@@ -37,6 +37,11 @@
                 @(character.IsMan ? "Мужчина" : "Женщина") <br/>
                 @(character.IsAlive ? "Еще пока что жив..." : "Умер")<br/>
                 Стоимость: @character.Price
+                @using (Html.BeginForm("Manage", "Cart"))
+                {
+                    @Html.Hidden("id", character.Id)
+                    <input type="submit" value="Проголосовать!" />
+                }
             </div>
         </p>
         <br/>
