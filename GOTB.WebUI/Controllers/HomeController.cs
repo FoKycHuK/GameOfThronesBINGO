@@ -11,6 +11,13 @@ namespace GoTB.WebUI.Controllers
 {
     public class HomeController : Controller
     {
+        private Dictionary<FilterBy, Func<Character, bool>> filters = new Dictionary<FilterBy, Func<Character, bool>>
+        {
+            {FilterBy.NoFilter, c => true},
+            {FilterBy.Alive, c => c.IsAlive},
+            {FilterBy.PriceLessThenThree, c => c.Price < 3}
+        };
+
         private ICharacterRepository repository;
         public int PageSize = 2;
         public Func<Character, int> OrderFunc = c => c.Id;
@@ -19,30 +26,28 @@ namespace GoTB.WebUI.Controllers
             this.repository = characterRepository;
         }
 
-        public ViewResult Index(int page = 1)
+        public ViewResult Index(int page = 1, FilterBy filter = FilterBy.NoFilter)
         {
-            //return View(
-            //    repository.Characters
-            //    .OrderBy(c => c.Id)
-            //    .Skip((page - 1) * PageSize)
-            //    .Take(PageSize)
-            //    .ToArray());
-
+            
+            var characters = repository.Characters
+                .Where(filters[filter])
+                .ToArray();
+            var charterersOnPage = characters
+                .Skip((page - 1)*PageSize)
+                .Take(PageSize)
+                .ToArray();
             CharactersListViewModel model = new CharactersListViewModel
             {
-                Characters = repository.Characters
-                .OrderBy(OrderFunc)
-                .Skip((page - 1) * PageSize)
-                .Take(PageSize),
-
+                Characters = charterersOnPage,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Characters.Count()
+                    TotalItems = characters.Length
                 }
             };
 
+            //return new ContentResult {Content = characters.Length.ToString()};
             return View(model);
         }
     }

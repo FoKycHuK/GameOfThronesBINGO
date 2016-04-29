@@ -7,6 +7,12 @@
 
 <h2>@ViewBag.Title</h2>
 
+@foreach (var filter in FilterModels.filterDescribtion.Keys)
+{
+    @Html.ActionLink(FilterModels.filterDescribtion[filter], "Index", "Home", new {filter = filter.ToString()}, null)
+    <br/>
+}
+
 @foreach (var character in @Model.Characters)
 {
     <h3>@character.Name</h3>
@@ -19,7 +25,6 @@
                 @(character.IsAlive ? "Еще пока что жив..." : "Умер")<br/>
                 Стоимость: @character.Price
             </div>
-            <button></button>
         </p>
         <br/>
 

@@ -153,6 +153,7 @@
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\CharacterConstants.cs" />
+    <Compile Include="Models\FilterModels.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\CharactersListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -65,6 +65,27 @@ namespace GoTB.UnitTests
         }
 
         [TestMethod]
+        public void CanFilter()
+        {
+            Mock<ICharacterRepository> mock = new Mock<ICharacterRepository>();
+            mock.Setup(m => m.Characters).Returns(
+                new Character[]
+                {
+                    new Character {Id = 1, Name = "P1", Price = 1},
+                    new Character {Id = 2, Name = "P2", Price = 2},
+                    new Character {Id = 3, Name = "P3", Price = 3},
+                    new Character {Id = 4, Name = "P4", Price = 4},
+                    new Character {Id = 5, Name = "P5", Price = 5}
+                 }.AsQueryable());
+            var controller = new HomeController(mock.Object);
+            var res = (CharactersListViewModel) controller.Index(2, FilterBy.PriceLessThenThree).Model;
+            var array = res.Characters.ToArray();
+            Assert.IsTrue(array.Length == 2);
+            Assert.AreEqual(array[0].Name, "P4");
+            Assert.AreEqual(array[1].Name, "P5");
+        }
+
+        [TestMethod]
         public void Can_Generate_Page_Links()
         {
             // Arrange - define an HTML helper - we need to do this

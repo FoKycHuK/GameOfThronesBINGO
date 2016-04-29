@@ -7,6 +7,6 @@ namespace GoTB.WebUI.Models
 {
     public static class CharacterConstants
     {
-        public static readonly string PathToImages = @"Content\Images\";
+        public static readonly string PathToImages = @"/Content/Images/";
     }
 }
