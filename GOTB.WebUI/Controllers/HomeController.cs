@@ -26,12 +26,15 @@ namespace GoTB.WebUI.Controllers
             this.repository = characterRepository;
         }
 
-        public ViewResult Index(int page = 1, FilterBy filter = FilterBy.NoFilter)
+        public ViewResult Index(int page = 1, FilterBy filter = FilterBy.NoFilter, string substring = null)
         {
-            
+            ViewBag.substring = substring;
+            ViewBag.filter = filter;
             var characters = repository.Characters
                 .Where(filters[filter])
                 .ToArray();
+            if (!string.IsNullOrEmpty(substring))
+                characters = characters.Where(c => c.Name.Contains(substring)).ToArray();
             var charterersOnPage = characters
                 .Skip((page - 1)*PageSize)
                 .Take(PageSize)

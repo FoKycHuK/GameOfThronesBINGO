@@ -13,6 +13,19 @@
     <br/>
 }
 
+<br/>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div>Поиск по подстроке в имени</div>
+    @Html.DropDownList("filter", 
+        Enum.GetNames(typeof(FilterBy))
+        .Select(x => new SelectListItem() {Text = x, Value = x, Selected = x == ViewBag.filter.ToString()}))
+    @Html.TextBox("substring");
+    <input type="submit" value="Поиск" />
+}
+
+<br/>
+
 @foreach (var character in @Model.Characters)
 {
     <h3>@character.Name</h3>
@@ -32,5 +45,5 @@
 }
 
 <div class="pager">
-    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x, ViewBag.filter, ViewBag.substring}))
 </div>
