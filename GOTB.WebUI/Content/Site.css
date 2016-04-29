@@ -80,7 +80,7 @@ DIV#header
 }
  DIV#header DIV.title
  {
- font-size: 2em;
+ font-size: 3em;
  padding: .6em;
  }
 DIV#content
@@ -118,7 +118,7 @@ DIV.item
  }
 DIV.pager
 {
- text-align: right;
+ text-align: center;
  border-top: 2px solid silver;
  padding: .5em 0 0 0;
  margin-top: 1em;
@@ -141,18 +141,18 @@ DIV.pager
  }
 
  h2 {
-     font-size: 50px;
+     font-size: 40px;
  }
 
  h3 {
-     font-size: 40px;
+     font-size: 30px;
      margin-bottom: 0px;
  }
 
  .character_img {
-     height: 200px;
-     margin: 10px;
-     margin-right: 30px;
+     height: 150px;
+     margin: 5px;
+     margin-right: 15px;
      margin-top: 0px;
  }
 
@@ -160,5 +160,10 @@ DIV.pager
      display: flex;
      flex-direction: row;
      align-items: center;
+     font-size: 25px;
+ }
+
+ .pager {
      font-size: 30px;
+     text-align: center;
  }

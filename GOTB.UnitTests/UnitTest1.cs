@@ -31,9 +31,9 @@ namespace GoTB.UnitTests
             HomeController controller = new HomeController(mock.Object);
             controller.PageSize = 3;
             //Act
-            IEnumerable<Character> result = (IEnumerable<Character>) controller.Index(2).Model;
+            var result =  (CharactersListViewModel)controller.Index(2).Model;
             // Assert
-            Character[] prodArray = result.ToArray();
+            Character[] prodArray = result.Characters.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
             Assert.AreEqual(prodArray[0].Name, "P4");
             Assert.AreEqual(prodArray[1].Name, "P5");
