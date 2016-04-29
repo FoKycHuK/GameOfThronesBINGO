@@ -3,8 +3,8 @@ using GoTB.Domain.Entities;
 
 namespace GoTB.Domain.Abstract
 {
-    public interface IProductRepository
+    public interface ICharacterRepository
     {
-        IQueryable<Character> Products { get; }
+        IQueryable<Character> Characters { get; }
     }
 }

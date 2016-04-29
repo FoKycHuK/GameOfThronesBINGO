@@ -25,6 +25,12 @@ namespace GoTB.WebUI
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+
+            var context = new GoTB.Domain.Concrete.EFDbContext();
+            //context.Database.Delete();
+            //context.Database.CreateIfNotExists();
+            context.Characters.ToArray();
+
         }
     }
 }

@@ -11,16 +11,16 @@ namespace GoTB.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private IProductRepository repository;
+        private ICharacterRepository repository;
         public int PageSize = 4;
-        public HomeController(IProductRepository productRepository)
+        public HomeController(ICharacterRepository characterRepository)
         {
-            this.repository = productRepository;
+            this.repository = characterRepository;
         }
 
         public ActionResult Index()
         {
-            return View();
+            return View(repository.Characters.ToArray());
         }
     }
 }

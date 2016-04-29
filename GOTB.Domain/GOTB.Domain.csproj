@@ -46,10 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstract\IProductsRepository.cs" />
+    <Compile Include="Abstract\ICharacterRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Concrete\EFProductRepository.cs" />
-    <Compile Include="Entities\Product..cs" />
+    <Compile Include="Concrete\EfCharacterRepository.cs" />
+    <Compile Include="Entities\Character.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

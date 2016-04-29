@@ -34,14 +34,14 @@ namespace GoTB.WebUI.Infrastructure
         private void AddBindings()
         {
             // конфигурирование контейнера
-//            Mock<IProductRepository> mock = new Mock<IProductRepository>();
-//            mock.Setup(m => m.Products).Returns(new List<Character> {
+//            Mock<ICharacterRepository> mock = new Mock<ICharacterRepository>();
+//            mock.Setup(m => m.Characters).Returns(new List<Character> {
 //             new Character { Name = "Football", Price = 25 },
 //             new Character { Name = "Surf board", Price = 179 },
 //             new Character { Name = "Running shoes", Price = 95 }
 //             }.AsQueryable());
-//            ninjectKernel.Bind<IProductRepository>().ToConstant(mock.Object);
-            ninjectKernel.Bind<IProductRepository>().To<EFProductRepository>();
+//            ninjectKernel.Bind<ICharacterRepository>().ToConstant(mock.Object);
+            ninjectKernel.Bind<ICharacterRepository>().To<EfCharacterRepository>();
         }
     }
 }

@@ -19,17 +19,17 @@ namespace GoTB.UnitTests
         public void TestMethod1()
         {
             // Arrange
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new Character[]
-            {
-                new Character {Id = 1, Name = "P1"},
-                new Character {Id = 2, Name = "P2"},
-                new Character {Id = 3, Name = "P3"},
-                new Character {Id = 4, Name = "P4"},
-                new Character {Id = 5, Name = "P5"}
-            }.AsQueryable());
-            HomeController controller = new HomeController(mock.Object);
-            controller.PageSize = 3;
+            //Mock<ICharacterRepository> mock = new Mock<ICharacterRepository>();
+            //mock.Setup(m => m.Products).Returns(new Character[]
+            //{
+            //    new Character {Id = 1, Name = "P1"},
+            //    new Character {Id = 2, Name = "P2"},
+            //    new Character {Id = 3, Name = "P3"},
+            //    new Character {Id = 4, Name = "P4"},
+            //    new Character {Id = 5, Name = "P5"}
+            //}.AsQueryable());
+            //HomeController controller = new HomeController(mock.Object);
+            //controller.PageSize = 3;
             // Act
             //IEnumerable<Character> result = (IEnumerable<Character>) controller.List(2).Model;
             //// Assert

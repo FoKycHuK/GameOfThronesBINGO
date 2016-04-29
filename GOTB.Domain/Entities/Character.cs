@@ -10,5 +10,6 @@
         public int Age { get; set; }
         public bool IsAlive { get; set; }
         public int PopularityPoints { get; set; }
+        public string ImageName { get; set; }
     }
 }

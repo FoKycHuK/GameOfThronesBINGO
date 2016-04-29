@@ -4,12 +4,12 @@ using GoTB.Domain.Entities;
 
 namespace GoTB.Domain.Concrete
 {
-    public class EFProductRepository : IProductRepository
+    public class EfCharacterRepository : ICharacterRepository
     {
         private EFDbContext context = new EFDbContext();
-        public IQueryable<Character> Products
+        public IQueryable<Character> Characters
         {
-            get { return context.Products; }
+            get { return context.Characters; }
         }
     }
 }

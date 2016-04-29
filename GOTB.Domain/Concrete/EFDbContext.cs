@@ -5,6 +5,6 @@ namespace GoTB.Domain.Concrete
 {
     public class EFDbContext : DbContext
     {
-        public DbSet<Character> Products { get; set; }
+        public DbSet<Character> Characters { get; set; }
     }
 }
