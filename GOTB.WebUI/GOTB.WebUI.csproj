@@ -154,7 +154,7 @@
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\CharacterConstants.cs" />
     <Compile Include="Models\PagingInfo.cs" />
-    <Compile Include="Models\ProductsListViewModel.cs" />
+    <Compile Include="Models\CharactersListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ namespace GoTB.WebUI
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
             var context = new GoTB.Domain.Concrete.EFDbContext();
-            
+
             //context.Database.Delete();
             //context.Database.CreateIfNotExists();
             if (!context.Characters.Any())

@@ -1,11 +1,13 @@
-﻿@model GoTB.Domain.Entities.Character[]
+﻿@using GoTB.WebUI.HtmlHelpers
+@using GoTB.WebUI.Models
+@model CharactersListViewModel
 @{
     ViewBag.Title = "Characters";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@foreach (var character in @Model)
+@foreach (var character in @Model.Characters)
 {
     <h3>@character.Name</h3>
     <div class ="character_div">
@@ -22,4 +24,7 @@
 
     </div>
 }
-    
+
+<div class="pager">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+</div>

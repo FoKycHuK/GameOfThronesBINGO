@@ -3,9 +3,9 @@ using GoTB.Domain.Entities;
 
 namespace GoTB.WebUI.Models
 {
-    public class ProductsListViewModel
+    public class CharactersListViewModel
     {
-        public IEnumerable<Character> Products { get; set; }
+        public IEnumerable<Character> Characters { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }

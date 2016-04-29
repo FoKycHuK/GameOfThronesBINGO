@@ -12,15 +12,38 @@ namespace GoTB.WebUI.Controllers
     public class HomeController : Controller
     {
         private ICharacterRepository repository;
-        public int PageSize = 4;
+        public int PageSize = 2;
+        public Func<Character, int> OrderFunc = c => c.Id;
         public HomeController(ICharacterRepository characterRepository)
         {
             this.repository = characterRepository;
         }
 
-        public ActionResult Index()
+        public ViewResult Index(int page = 1)
         {
-            return View(repository.Characters.ToArray());
+            //return View(
+            //    repository.Characters
+            //    .OrderBy(c => c.Id)
+            //    .Skip((page - 1) * PageSize)
+            //    .Take(PageSize)
+            //    .ToArray());
+
+            CharactersListViewModel model = new CharactersListViewModel
+            {
+                Characters = repository.Characters
+                .OrderBy(OrderFunc)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize),
+
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Characters.Count()
+                }
+            };
+
+            return View(model);
         }
     }
 }
