@@ -119,11 +119,14 @@ namespace GoTB.WebUI.Controllers
             return chs;
         }
 
-        public PartialViewResult SubmitButton()
+        public PartialViewResult SubmitButton(ButtonViewModel bvm)
         {
+            if (bvm == null)
+                bvm = new ButtonViewModel() {NeedToShowButton = false, TextIfNotNeeded = "Произошла ошибка."};
             var week = weekProvider.GetCurrentWeek();
-            return PartialView(!User.Identity.IsAuthenticated || 
-                !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week));
+            bvm.NeedToShowButton = !User.Identity.IsAuthenticated ||
+                                   !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week);
+            return PartialView(bvm);
         }
     }
 }

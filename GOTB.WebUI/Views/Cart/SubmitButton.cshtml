@@ -1,13 +1,13 @@
-﻿@model bool
+﻿@model GoTB.WebUI.Models.ButtonViewModel
 
-@if (@Model)
+@if (Model.NeedToShowButton)
 {
-    using (@Html.BeginForm("Submit", "Cart", FormMethod.Post))
+    using (@Html.BeginForm(Model.Method, Model.Controller, FormMethod.Post))
     {
-        <input type="submit" value="Подтвердить!"/>
+        <input type="submit" value="@Model.TextButton"/>
     }
 }
 else
 {
-    <div>Вы уже проголосовали на этой неделе</div>
+    <div>@Model.TextIfNotNeeded</div>
 }

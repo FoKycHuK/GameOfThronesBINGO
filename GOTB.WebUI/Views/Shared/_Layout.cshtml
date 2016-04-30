@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using GoTB.WebUI.Models
+<!DOCTYPE html>
 <html>
 <head>
  <meta charset="utf-8" />
@@ -19,7 +20,13 @@
      <br/>
      @Html.ActionLink("Выйти", "Logout", "Account") <br/>
      <br/>
-     @{ Html.RenderAction("SubmitButton", "Cart"); }
+     @{ Html.RenderAction("SubmitButton", "Cart", new { bvm = new ButtonViewModel()
+        {
+            Controller = "Cart",
+            Method = "Submit",
+            TextButton = "Подтвердить выбор",
+            TextIfNotNeeded = "Вы уже сделали окончательный выбор на этой неделе"
+        } }); }
  </div>
  <div id="content">
  @RenderBody()
