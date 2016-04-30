@@ -119,11 +119,11 @@ namespace GoTB.WebUI.Controllers
             return chs;
         }
 
-        public PartialViewResult SubmitButton(string userName)
+        public PartialViewResult SubmitButton()
         {
             var week = weekProvider.GetCurrentWeek();
             return PartialView(!User.Identity.IsAuthenticated || 
-                !voteRepository.Votes.Any(v => v.User == userName && v.Week == week));
+                !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week));
         }
     }
 }
