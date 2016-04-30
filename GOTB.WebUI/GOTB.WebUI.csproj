@@ -162,6 +162,7 @@
     <Compile Include="Infrastructure\Abstract\IWeekProvider.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Infrastructure\WeekProvider.cs" />
+    <Compile Include="Models\ButtonViewModel.cs" />
     <Compile Include="Models\CharacterConstants.cs" />
     <Compile Include="Models\CharacterViewModel.cs" />
     <Compile Include="Models\FilterModels.cs" />
