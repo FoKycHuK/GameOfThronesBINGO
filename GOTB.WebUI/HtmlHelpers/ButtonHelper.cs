@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Web.Mvc;
+using GoTB.WebUI.Models;
 
 namespace GoTB.WebUI.HtmlHelpers
 {
     public static class ButtonHelper
     {
-        public static MvcHtmlString CreateButtonIfNeeded(this HtmlHelper html, bool needButton,
-            string method, string controller, string textButton, string textIfNotNeeded,
-            Dictionary<string, string> hiddenParams = null)
+        public static MvcHtmlString CreateButtonIfNeeded(this HtmlHelper html, ButtonViewModel bvm)
         {
             StringBuilder result = new StringBuilder();
-            if (needButton)
+            if (bvm.NeedToShowButton)
             {
                 TagBuilder tagForm = new TagBuilder("form");
-                tagForm.Attributes["action"] = controller + method;
+                tagForm.Attributes["action"] = string.Format("/{0}/{1}", bvm.Controller, bvm.Method);
                 tagForm.Attributes["method"] = "post";
                 var inner = new StringBuilder();
-                if (hiddenParams != null)
+                if (bvm.HiddenParams != null)
                 {
-                    foreach (var hiddenParam in hiddenParams)
+                    foreach (var hiddenParam in bvm.HiddenParams)
                     {
                         var tag = new TagBuilder("input");
                         tag.Attributes["type"] = "hidden";
@@ -30,7 +29,7 @@ namespace GoTB.WebUI.HtmlHelpers
                 }
                 TagBuilder tagBut = new TagBuilder("input");
                 tagBut.Attributes["type"] = "submit";
-                tagBut.Attributes["value"] = textButton;
+                tagBut.Attributes["value"] = bvm.TextButton;
                 inner.Append(tagBut);
                 tagForm.InnerHtml = inner.ToString();
                 result.Append(tagForm.ToString());
@@ -38,7 +37,7 @@ namespace GoTB.WebUI.HtmlHelpers
             else
             {
                 TagBuilder div = new TagBuilder("div");
-                div.InnerHtml = textIfNotNeeded;
+                div.InnerHtml = bvm.TextIfNotNeeded;
                 result.Append(div.ToString());
             }
             return MvcHtmlString.Create(result.ToString());

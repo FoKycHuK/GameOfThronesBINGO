@@ -124,8 +124,9 @@ namespace GoTB.WebUI.Controllers
             if (bvm == null)
                 bvm = new ButtonViewModel() {NeedToShowButton = false, TextIfNotNeeded = "Произошла ошибка."};
             var week = weekProvider.GetCurrentWeek();
-            bvm.NeedToShowButton = !User.Identity.IsAuthenticated ||
-                                   !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week);
+            if (bvm.NeedToShowButton)
+                bvm.NeedToShowButton = !User.Identity.IsAuthenticated ||
+                                       !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week);
             return PartialView(bvm);
         }
     }
