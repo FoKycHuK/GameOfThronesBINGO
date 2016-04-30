@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using GoTB.Domain.Abstract;
 using GoTB.WebUI.Models;
 using GoTB.Domain.Entities;
+using GoTB.WebUI.Infrastructure;
 
 namespace GoTB.WebUI.Controllers
 {
@@ -19,11 +20,14 @@ namespace GoTB.WebUI.Controllers
         };
 
         private ICharacterRepository repository;
+        private ICartProvider cartProvider;
+
         public int PageSize = 2;
         public Func<Character, int> OrderFunc = c => c.Id;
-        public HomeController(ICharacterRepository characterRepository)
+        public HomeController(ICharacterRepository characterRepository, ICartProvider cartProvider)
         {
             this.repository = characterRepository;
+            this.cartProvider = cartProvider;
         }
 
         public ViewResult Index(int page = 1, FilterBy filter = FilterBy.NoFilter, string substring = null)
@@ -38,6 +42,8 @@ namespace GoTB.WebUI.Controllers
             var charterersOnPage = characters
                 .Skip((page - 1)*PageSize)
                 .Take(PageSize)
+                .Select(c => new CharacterViewModel {Character = c,
+                    VoteType = CartHelpers.GetVoteTypeForCharacter(c, cartProvider.GetCart(this))})
                 .ToArray();
             CharactersListViewModel model = new CharactersListViewModel
             {
@@ -49,9 +55,13 @@ namespace GoTB.WebUI.Controllers
                     TotalItems = characters.Length
                 }
             };
-
-            //return new ContentResult {Content = characters.Length.ToString()};
+            
             return View(model);
+        }
+
+        public PartialViewResult CharacterInfo(CharacterViewModel characterViewModel)
+        {
+            return PartialView(characterViewModel);
         }
     }
 }

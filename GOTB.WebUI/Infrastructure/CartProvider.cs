@@ -10,7 +10,11 @@ namespace GoTB.WebUI.Infrastructure
     {
         public Cart GetCart(System.Web.Mvc.Controller controller)
         {
-            return controller.Session["Cart"] as Cart;
+            var cart = controller.Session["Cart"] as Cart;
+            if (cart != null) return cart;
+            cart = new Cart();
+            controller.Session["Cart"] = cart;
+            return cart;
         }
 
         public void SetCart(System.Web.Mvc.Controller controller, Cart cart)

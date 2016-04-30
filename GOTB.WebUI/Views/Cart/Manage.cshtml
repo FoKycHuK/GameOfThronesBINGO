@@ -1,4 +1,4 @@
-﻿@model GoTB.Domain.Entities.Character[]
+﻿@model GoTB.WebUI.Models.CharacterViewModel[]
 
 @{
     ViewBag.Title = "Выбранные";
@@ -12,12 +12,7 @@
 Вы выбрали следующих персонажей в эту неделю:
 @foreach (var ch in @Model)
 {
-    <div>@ch.Name</div>
-    using (Html.BeginForm("Remove", "Cart"))
-    {
-         @Html.Hidden("id", ch.Id);
-         <input type="submit" value="Убрать" />
-    }
+    Html.RenderAction("CharacterInfo", "Home", new {characterViewModel = ch});
 }
 
 @using (@Html.BeginForm("Submit"))

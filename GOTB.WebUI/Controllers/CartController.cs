@@ -7,6 +7,7 @@ using GoTB.Domain.Abstract;
 using GoTB.Domain.Concrete;
 using GoTB.Domain.Entities;
 using GoTB.WebUI.Infrastructure;
+using GoTB.WebUI.Models;
 
 namespace GoTB.WebUI.Controllers
 {
@@ -24,7 +25,7 @@ namespace GoTB.WebUI.Controllers
         [HttpGet]
         public ActionResult Manage()
         {
-            return View(GetChoosenChs());
+            return View(GetChoosenChsViewModels());
         }
 
         [HttpPost]
@@ -34,23 +35,23 @@ namespace GoTB.WebUI.Controllers
             if (!repository.Characters.Any(c => c.Id == id))
             {
                 ViewBag.Error = "Такого персонажа не существует!";
-                return View(GetChoosenChs());
+                return View(GetChoosenChsViewModels());
             }
             var price = repository.Characters.First(c => c.Id == id).Price;
-            var cart = GetCart();
+            var cart = cartProvider.GetCart(this);
             if (cart.CharacterIds.Contains(id))
             {
                 ViewBag.Error = "Вы уже проголосовали за этого участника!";
-                return View(GetChoosenChs());
+                return View(GetChoosenChsViewModels());
             }
             if (cart.Points < price)
             {
                 ViewBag.Error = "У вас недостаточно очков!";
-                return View(GetChoosenChs());
+                return View(GetChoosenChsViewModels());
             }
             cart.Points -= price;
             cart.CharacterIds.Add(id);
-            return View(GetChoosenChs());
+            return View(GetChoosenChsViewModels());
         }
 
         [HttpPost]
@@ -61,33 +62,31 @@ namespace GoTB.WebUI.Controllers
 
         public PartialViewResult CartInfo()
         {
-            return PartialView(GetCart());
+            return PartialView(cartProvider.GetCart(this));
         }
 
         [HttpPost]
         public ActionResult Remove(int id)
         {
-            var cart = GetCart();
+            var cart = cartProvider.GetCart(this);
+            if (!cart.CharacterIds.Contains(id))
+            {
+                ViewBag.Error = "Вы не голосовали за этого героя";
+                return RedirectToAction("Manage");
+            }
             var price = repository.Characters.First(c => c.Id == id).Price;
             cart.CharacterIds.Remove(id);
             cart.Points += price;
             return RedirectToAction("Manage");
         }
 
-        private Character[] GetChoosenChs()
+        private CharacterViewModel[] GetChoosenChsViewModels()
         {
-            var ids = GetCart().CharacterIds;
-            var chs = ids.Select(id => repository.Characters.First(c => c.Id == id)).ToArray(); //todo:join
+            var ids = cartProvider.GetCart(this).CharacterIds;
+            var chs = ids.Select(id => repository.Characters.First(c => c.Id == id)) //todo:join
+                .Select(c => new CharacterViewModel() {Character = c, VoteType = VoteType.AlreadyVoted})
+                .ToArray(); 
             return chs;
-        }
-
-        Cart GetCart()
-        {
-            var cart = cartProvider.GetCart(this);
-            if (cart != null) return cart;
-            cart = new Cart();
-            cartProvider.SetCart(this, cart);
-            return cart;
         }
     }
 }

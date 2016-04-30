@@ -51,6 +51,7 @@
     <Compile Include="Concrete\EfCharacterRepository.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\VoteType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

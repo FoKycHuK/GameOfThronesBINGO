@@ -1,0 +1,37 @@
+﻿@using GoTB.Domain.Entities
+@model GoTB.WebUI.Models.CharacterViewModel
+
+<h3>@Model.Character.Name</h3>
+<div class="character_div">
+    <p>
+        <img class="character_img" src="@(GoTB.WebUI.Models.CharacterConstants.PathToImages + @Model.Character.ImageName)" alt="@Model.Character.Name" />
+        <div>
+            Возраст: @Model.Character.Age<br />
+            @(Model.Character.IsMan ? "Мужчина" : "Женщина") <br />
+            @(Model.Character.IsAlive ? "Еще пока что жив..." : "Умер")<br />
+            Стоимость: @Model.Character.Price
+            @switch (Model.VoteType)
+            {
+                case VoteType.CanVote:
+                    using (Html.BeginForm("Manage", "Cart"))
+                    {
+                        @Html.Hidden("id", Model.Character.Id)
+                        <input type="submit" value="Проголосовать!" />
+                    }
+                    break;
+                case VoteType.AlreadyVoted:
+                    using (Html.BeginForm("Remove", "Cart"))
+                    {
+                        @Html.Hidden("id", Model.Character.Id)
+                        <input type="submit" value="Разголосовать!" />
+                    }
+                    break;
+                default:
+                    <div>Вы не можете проголосовать сейчас</div>
+                    break;
+            }
+        </div>
+    </p>
+    <br />
+
+</div>

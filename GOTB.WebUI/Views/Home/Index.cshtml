@@ -26,27 +26,9 @@
 
 <br/>
 
-@foreach (var character in @Model.Characters)
+@foreach (var characterViewModel in @Model.Characters)
 {
-    <h3>@character.Name</h3>
-    <div class ="character_div">
-        <p>
-            <img class="character_img" src="@(GoTB.WebUI.Models.CharacterConstants.PathToImages + @character.ImageName)" alt="@character.Name"/>
-            <div>
-                Возраст: @character.Age<br/>
-                @(character.IsMan ? "Мужчина" : "Женщина") <br/>
-                @(character.IsAlive ? "Еще пока что жив..." : "Умер")<br/>
-                Стоимость: @character.Price
-                @using (Html.BeginForm("Manage", "Cart"))
-                {
-                    @Html.Hidden("id", character.Id)
-                    <input type="submit" value="Проголосовать!" />
-                }
-            </div>
-        </p>
-        <br/>
-
-    </div>
+    Html.RenderAction("CharacterInfo", new {characterViewModel = characterViewModel});
 }
 
 <div class="pager">

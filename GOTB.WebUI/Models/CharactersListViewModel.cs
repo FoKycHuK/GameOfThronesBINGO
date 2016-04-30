@@ -5,7 +5,7 @@ namespace GoTB.WebUI.Models
 {
     public class CharactersListViewModel
     {
-        public IEnumerable<Character> Characters { get; set; }
+        public IEnumerable<CharacterViewModel> Characters { get; set; }
         public PagingInfo PagingInfo { get; set; }
     }
 }
