@@ -12,12 +12,6 @@ namespace GoTB.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private Dictionary<FilterBy, Func<Character, bool>> filters = new Dictionary<FilterBy, Func<Character, bool>>
-        {
-            {FilterBy.NoFilter, c => true},
-            {FilterBy.Alive, c => c.IsAlive},
-            {FilterBy.PriceLessThenThree, c => c.Price < 3}
-        };
 
         private ICharacterRepository repository;
         private ICartProvider cartProvider;
@@ -35,7 +29,7 @@ namespace GoTB.WebUI.Controllers
             ViewBag.substring = substring;
             ViewBag.filter = filter;
             var characters = repository.Characters
-                .Where(filters[filter])
+                .Where(FilterModels.Filters[filter])
                 .ToArray();
             if (!string.IsNullOrEmpty(substring))
                 characters = characters.Where(c => c.Name.Contains(substring)).ToArray();

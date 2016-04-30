@@ -141,6 +141,152 @@ namespace GoTB.UnitTests
             Assert.IsTrue(cart.CharacterIds.Contains(2));
             Assert.IsTrue(cart.CharacterIds.Contains(4));
         }
+
+        [TestMethod]
+        public void PutCharacterTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 10 };
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new[]
+                {
+                    new Character() {Id = 1, Price = 8}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Manage(1);
+
+            Assert.AreEqual(2, cart.Points);
+            Assert.AreEqual(1, cart.CharacterIds.Count);
+            Assert.IsTrue(cart.CharacterIds.Contains(1));
+        }
+
+        [TestMethod]
+        public void RemoveCharacterTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 10, CharacterIds = new List<int> {1}};
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new[]
+                {
+                    new Character() {Id = 1, Price = 8}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Remove(1);
+
+            Assert.AreEqual(18, cart.Points);
+            Assert.IsFalse(cart.CharacterIds.Any());
+        }
+
+        [TestMethod]
+        public void CantReputCharacterTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 10, CharacterIds = new List<int> { 1 } };
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new[]
+                {
+                    new Character() {Id = 1, Price = 8}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Manage(1);
+
+            Assert.AreEqual(10, cart.Points);
+            Assert.AreEqual(1, cart.CharacterIds.Count);
+            Assert.IsTrue(cart.CharacterIds.Contains(1));
+        }
+
+        [TestMethod]
+        public void CantPutWithoutMoneyTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 2 };
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new[]
+                {
+                    new Character() {Id = 1, Price = 8}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Manage(1);
+
+            Assert.AreEqual(2, cart.Points);
+            Assert.IsFalse(cart.CharacterIds.Any());
+        }
+
+        [TestMethod]
+        public void CantRemoveNonExistentCharacterTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 10 };
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+            repoMock.Setup(r => r.Characters)
+                .Returns(new[]
+                {
+                    new Character() {Id = 1, Price = 8}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Remove(1);
+
+            Assert.AreEqual(10, cart.Points);
+            Assert.IsFalse(cart.CharacterIds.Any());
+        }
+
+        [TestMethod]
+        public void CantPutNonExistentCharacterTest()
+        {
+            var cartMock = new Mock<ICartProvider>();
+            var cart = new Cart() { Points = 10 };
+            cartMock.Setup(
+                c => c.GetCart(
+                    It.IsAny<CartController>()))
+                        .Returns(cart);
+            var repoMock = new Mock<ICharacterRepository>();
+
+            var controller = new CartController(repoMock.Object, cartMock.Object);
+
+            controller.Manage(1);
+
+            Assert.AreEqual(10, cart.Points);
+            Assert.IsFalse(cart.CharacterIds.Any());
+        }
     }
 }
 
