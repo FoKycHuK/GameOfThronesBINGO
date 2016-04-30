@@ -7,9 +7,9 @@
 
 <h2>@ViewBag.Title</h2>
 
-@foreach (var filter in FilterModels.filterDescribtion.Keys)
+@foreach (var filter in FilterModels.FilterDescription.Keys)
 {
-    @Html.ActionLink(FilterModels.filterDescribtion[filter], "Index", "Home", new {filter = filter.ToString()}, null)
+    @Html.ActionLink(FilterModels.FilterDescription[filter], "Index", "Home", new {filter = filter.ToString()}, null)
     <br/>
 }
 
