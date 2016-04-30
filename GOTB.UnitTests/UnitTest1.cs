@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using GoTB.Domain.Abstract;
+using GoTB.Domain.Concrete;
 using GoTB.Domain.Entities;
 using GoTB.WebUI.Controllers;
 using GoTB.WebUI.Models;
@@ -140,7 +141,18 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, cartMock.Object);
+            var voteMock = new Mock<IVoteRepository>();
+            voteMock.Setup(v => v.Votes)
+                .Returns(new[]
+                {
+                    new Vote() {User = "aaa", VoteID = 1, VoteItems = new []
+                    {
+                        new VoteItem() {Character = new Character() {Id = 1, Price = 8}}
+                    }, Week = 1}
+                }.AsQueryable()
+                );
+
+            var controller = new CartController(repoMock.Object, voteMock.Object, cartMock.Object, null);
 
             controller.Manage(1);
             controller.Manage(2);
