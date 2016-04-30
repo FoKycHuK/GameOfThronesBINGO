@@ -8,7 +8,7 @@ namespace GoTB.WebUI.Infrastructure
         {
             return cart.CharacterIds.Contains(character.Id)
                 ? VoteType.AlreadyVoted
-                : cart.Points > character.Price
+                : cart.Points >= character.Price
                     ? VoteType.CanVote
                     : VoteType.Disabled;
         }
