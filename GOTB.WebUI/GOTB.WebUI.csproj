@@ -146,6 +146,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -257,6 +258,7 @@
     </Content>
     <Content Include="Views\Cart\CartInfo.cshtml" />
     <Content Include="Views\Cart\Manage.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>

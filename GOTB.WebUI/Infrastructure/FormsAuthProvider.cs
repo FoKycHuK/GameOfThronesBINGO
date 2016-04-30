@@ -14,5 +14,10 @@ namespace GoTB.WebUI.Infrastructure
             }
             return result;
         }
+
+        public void Logout()
+        {
+            FormsAuthentication.SignOut();
+        }
     }
 }

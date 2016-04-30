@@ -14,6 +14,8 @@
      @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
      @Html.ActionLink("На главную", "Index", "Home") <br/>
      @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
+     <br/>
+     @Html.ActionLink("Выйти", "Logout", "Account")
  </div>
  <div id="content">
  @RenderBody()

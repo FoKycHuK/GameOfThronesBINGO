@@ -1,0 +1,14 @@
+﻿@model GoTB.WebUI.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<h2>Авторизация</h2>
+@(ViewBag.Error ?? "")
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <p><input type="submit" value="Log in" /></p>
+}
