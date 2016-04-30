@@ -15,11 +15,13 @@ namespace GoTB.WebUI.Controllers
     {
         private readonly ICharacterRepository repository;
         private readonly ICartProvider cartProvider;
+        private readonly IWeekProvider weekProvider;
 
-        public CartController(ICharacterRepository rep, ICartProvider cartProvider)
+        public CartController(ICharacterRepository rep, ICartProvider cartProvider, IWeekProvider weekProvider)
         {
             repository = rep;
             this.cartProvider = cartProvider;
+            this.weekProvider = weekProvider;
         }
 
         [HttpGet]
