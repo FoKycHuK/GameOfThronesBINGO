@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using GoTB.Domain.Abstract;
 using GoTB.Domain.Entities;
@@ -29,15 +30,18 @@ namespace GoTB.UnitTests
                 new Character {Id = 4, Name = "P4"},
                 new Character {Id = 5, Name = "P5"}
             }.AsQueryable());
-            HomeController controller = new HomeController(mock.Object);
+            Mock<ICartProvider> cpMock = new Mock<ICartProvider>();
+            cpMock.Setup(cp => cp.GetCart(It.IsAny<HomeController>())).Returns(new Cart(){Points = 1000});
+            
+            HomeController controller = new HomeController(mock.Object, cpMock.Object);
             controller.PageSize = 3;
             //Act
             var result =  (CharactersListViewModel)controller.Index(2).Model;
             // Assert
-            Character[] prodArray = result.Characters.ToArray();
+            var prodArray = result.Characters.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
-            Assert.AreEqual(prodArray[0].Name, "P4");
-            Assert.AreEqual(prodArray[1].Name, "P5");
+            Assert.AreEqual(prodArray[0].Character.Name, "P4");
+            Assert.AreEqual(prodArray[1].Character.Name, "P5");
         }
 
         [TestMethod]
@@ -54,15 +58,19 @@ namespace GoTB.UnitTests
                     new Character {Id = 4, Name = "P4"},
                     new Character {Id = 5, Name = "P5"}
                  }.AsQueryable());
-            HomeController controller = new HomeController(mock.Object);
+
+            Mock<ICartProvider> cpMock = new Mock<ICartProvider>();
+            cpMock.Setup(cp => cp.GetCart(It.IsAny<HomeController>())).Returns(new Cart() { Points = 1000 });
+
+            HomeController controller = new HomeController(mock.Object, cpMock.Object);
             controller.PageSize = 3;
             // Act
             var result = (CharactersListViewModel)controller.Index(2).Model;
             // Assert
-            Character[] prodArray = result.Characters.ToArray();
+            var prodArray = result.Characters.ToArray();
             Assert.IsTrue(prodArray.Length == 2);
-            Assert.AreEqual(prodArray[0].Name, "P4");
-            Assert.AreEqual(prodArray[1].Name, "P5");
+            Assert.AreEqual(prodArray[0].Character.Name, "P4");
+            Assert.AreEqual(prodArray[1].Character.Name, "P5");
         }
 
         [TestMethod]
@@ -78,12 +86,16 @@ namespace GoTB.UnitTests
                     new Character {Id = 4, Name = "P4", Price = 4},
                     new Character {Id = 5, Name = "P5", Price = 5}
                  }.AsQueryable());
-            var controller = new HomeController(mock.Object);
+
+            Mock<ICartProvider> cpMock = new Mock<ICartProvider>();
+            cpMock.Setup(cp => cp.GetCart(It.IsAny<HomeController>())).Returns(new Cart() { Points = 1000 });
+
+            var controller = new HomeController(mock.Object, cpMock.Object);
             var res = (CharactersListViewModel) controller.Index(1, FilterBy.PriceLessThenThree).Model;
             var array = res.Characters.ToArray();
             Assert.IsTrue(array.Length == 2);
-            Assert.AreEqual(array[0].Name, "P1");
-            Assert.AreEqual(array[1].Name, "P2");
+            Assert.AreEqual(array[0].Character.Name, "P1");
+            Assert.AreEqual(array[1].Character.Name, "P2");
         }
 
         [TestMethod]
