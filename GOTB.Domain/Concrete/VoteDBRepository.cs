@@ -17,6 +17,17 @@ namespace GoTB.Domain.Concrete
         }
 
         public IQueryable<Vote> Votes { get { return context.Votes; } }
-        public IQueryable<VoteItem> VoteItems { get { return context.VoteItems; } }
+
+        public void Add(Vote vote)
+        {
+            context.Votes.Add(vote);
+            context.SaveChanges();
+        }
+
+        public void AddRange(IEnumerable<Vote> votes)
+        {
+            context.Votes.AddRange(votes);
+            context.SaveChanges();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using GoTB.Domain.Entities;
+﻿using System.Linq;
+using GoTB.Domain.Concrete;
+using GoTB.Domain.Entities;
 
 namespace GoTB.WebUI.Infrastructure
 {

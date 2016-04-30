@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using GoTB.Domain.Abstract;
 using GoTB.Domain.Concrete;
 using GoTB.Domain.Entities;
@@ -36,7 +37,8 @@ namespace GoTB.WebUI.Controllers
         [HttpPost]
         public ActionResult Manage(int id)
         {
-
+            ViewBag.CanVote = !User.Identity.IsAuthenticated || !IsUserAlreadyVote(User.Identity.Name);
+                
             if (!repository.Characters.Any(c => c.Id == id))
             {
                 ViewBag.Error = "Такого персонажа не существует!";
@@ -59,10 +61,35 @@ namespace GoTB.WebUI.Controllers
             return View(GetChoosenChsViewModels());
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Submit()
         {
-            
+            var cart = cartProvider.GetCart(this);
+            if (cart.CharacterIds.Count == 0)
+                return RedirectToAction("Manage");
+            var vote = new Vote();
+            vote.User = User.Identity.Name;
+            vote.Week = weekProvider.GetCurrentWeek();
+            vote.VoteItems = GetVoteItems(cart.CharacterIds, vote);
+            voteRepository.Add(vote);
+
+            return RedirectToAction("Manage");
+        }
+
+        private List<VoteItem> GetVoteItems(List<int> charecterIds, Vote vote)
+        {
+            var counter = 0;
+            var ans = new List<VoteItem>();
+            foreach (var chId in charecterIds)
+            {
+                var chr = repository.Characters.First(x => x.Id == chId);
+                var voteItem = new VoteItem();
+                voteItem.Character = chr;
+                voteItem.Position = counter;
+                voteItem.Vote = vote;
+            }
+            return ans;
         }
 
         public PartialViewResult CartInfo()
@@ -92,6 +119,11 @@ namespace GoTB.WebUI.Controllers
                 .Select(c => new CharacterViewModel() {Character = c, VoteType = VoteType.AlreadyVoted})
                 .ToArray(); 
             return chs;
+        }
+
+        private bool IsUserAlreadyVote(string userName)
+        {
+            return voteRepository.Votes.Any(v => v.User == userName && v.Week == weekProvider.GetCurrentWeek());
         }
     }
 }

@@ -10,6 +10,7 @@ namespace GoTB.Domain.Concrete
     public interface IVoteRepository
     {
         IQueryable<Vote> Votes { get; }
-        IQueryable<VoteItem> VoteItems { get; }
+        void Add(Vote vote);
+        void AddRange(IEnumerable<Vote> votes);
     }
 }
