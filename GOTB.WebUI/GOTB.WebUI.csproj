@@ -155,11 +155,13 @@
     <Compile Include="HtmlHelpers\ButtonHelper.cs" />
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\Abstract\IAuthProvider.cs" />
+    <Compile Include="Infrastructure\Abstract\IUserProvider.cs" />
     <Compile Include="Infrastructure\CartHelperMethods.cs" />
     <Compile Include="Infrastructure\CartProvider.cs" />
     <Compile Include="Infrastructure\FormsAuthProvider.cs" />
     <Compile Include="Infrastructure\Abstract\ICartProvider.cs" />
     <Compile Include="Infrastructure\Abstract\IWeekProvider.cs" />
+    <Compile Include="Infrastructure\FormsUserProvider.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Infrastructure\WeekProvider.cs" />
     <Compile Include="Models\ButtonViewModel.cs" />

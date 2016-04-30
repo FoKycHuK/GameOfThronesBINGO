@@ -8,6 +8,7 @@ using GoTB.Domain.Abstract;
 using GoTB.Domain.Concrete;
 using GoTB.Domain.Entities;
 using GoTB.WebUI.Infrastructure;
+using GoTB.WebUI.Infrastructure.Abstract;
 using GoTB.WebUI.Models;
 
 namespace GoTB.WebUI.Controllers
@@ -18,14 +19,16 @@ namespace GoTB.WebUI.Controllers
         private readonly IVoteRepository voteRepository;
         private readonly ICartProvider cartProvider;
         private readonly IWeekProvider weekProvider;
+        private readonly IUserProvider userProvider;
 
         public CartController(ICharacterRepository rep, IVoteRepository voteRepository,
-            ICartProvider cartProvider, IWeekProvider weekProvider)
+            ICartProvider cartProvider, IWeekProvider weekProvider, IUserProvider userProvider)
         {
             repository = rep;
             this.cartProvider = cartProvider;
             this.weekProvider = weekProvider;
             this.voteRepository = voteRepository;
+            this.userProvider = userProvider;
         }
 
         [HttpGet]
@@ -64,10 +67,12 @@ namespace GoTB.WebUI.Controllers
         public ActionResult Submit()
         {
             var cart = cartProvider.GetCart(this);
+            
             if (cart.CharacterIds.Count == 0)
                 return RedirectToAction("Manage");
+            
             var vote = new Vote();
-            vote.User = User.Identity.Name;
+            vote.User = userProvider.GetUserName(this);
             vote.Week = weekProvider.GetCurrentWeek();
             vote.VoteItems = GetVoteItems(cart.CharacterIds, vote);
             voteRepository.Add(vote);
@@ -86,6 +91,7 @@ namespace GoTB.WebUI.Controllers
                 voteItem.Character = chr;
                 voteItem.Position = counter;
                 voteItem.Vote = vote;
+                ans.Add(voteItem);
             }
             return ans;
         }
@@ -125,8 +131,8 @@ namespace GoTB.WebUI.Controllers
                 bvm = new ButtonViewModel() {NeedToShowButton = false, TextIfNotNeeded = "Произошла ошибка."};
             var week = weekProvider.GetCurrentWeek();
             if (bvm.NeedToShowButton)
-                bvm.NeedToShowButton = !User.Identity.IsAuthenticated ||
-                                       !voteRepository.Votes.Any(v => v.User == User.Identity.Name && v.Week == week);
+                bvm.NeedToShowButton = !userProvider.IsAuthentificated(this) ||
+                                       !voteRepository.Votes.Any(v => v.User == userProvider.GetUserName(this) && v.Week == week);
             return PartialView(bvm);
         }
     }

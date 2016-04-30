@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using GoTB.Domain.Abstract;
 using GoTB.Domain.Concrete;
 using GoTB.Domain.Entities;
 using GoTB.WebUI.Controllers;
 using GoTB.WebUI.Infrastructure;
+using GoTB.WebUI.Infrastructure.Abstract;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -36,20 +38,36 @@ namespace GoTB.UnitTests
                     }.AsQueryable()
                     );
 
+            Vote vote = null;
             var voteMock = new Mock<IVoteRepository>();
-            voteMock.Setup(v => v.Votes);
+            voteMock.Setup(x => x.Add(It.IsAny<Vote>()))
+                .Callback<Vote>(v => vote = v);
 
             var weekMock = new Mock<IWeekProvider>();
             weekMock.Setup(c => c.GetCurrentWeek()).Returns(3);
 
-            var controller = new CartController(repoMock.Object, voteMock.Object, cartMock.Object, weekMock.Object);
+            var userMock = new Mock<IUserProvider>();
+            userMock.Setup(x => x.IsAuthentificated(It.IsAny<Controller>())).Returns(true);
+            userMock.Setup(x => x.GetUserName(It.IsAny<Controller>())).Returns("user");
+
+            var controller = new CartController(repoMock.Object, voteMock.Object, cartMock.Object, weekMock.Object, userMock.Object);
             controller.Manage(3);
             controller.Manage(4);
             controller.Submit();
 
+            Assert.IsTrue(vote != null);
+            Assert.AreEqual("user", vote.User);
+            Assert.AreEqual(3, vote.Week);
+            Assert.AreEqual(2, vote.VoteItems.Count);
+            Assert.IsTrue(vote.VoteItems.Any(vi => vi.Character.Id == 3));
+            Assert.IsTrue(vote.VoteItems.Any(vi => vi.Character.Id == 4));
 
-            voteMock.Verify(x => x.Add(It.IsAny<Vote>()));
-
+            //voteMock.Verify(x => x.Add(It.Is<Vote>(
+            //    v => v.User == "user" && 
+            //    v.Week == 3 && 
+            //    v.VoteItems.Count == 2 && 
+            //    v.VoteItems.Any(vi => vi.Character.Id == 3) &&
+            //    v.VoteItems.Any(vi => vi.Character.Id == 4))));
         }
     }
 }

@@ -152,7 +152,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, voteMock.Object, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, voteMock.Object, cartMock.Object, null, null);
 
             controller.Manage(1);
             controller.Manage(2);
@@ -182,7 +182,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Manage(1);
 
@@ -208,7 +208,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Remove(1);
 
@@ -233,7 +233,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Manage(1);
 
@@ -259,7 +259,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Manage(1);
 
@@ -284,7 +284,7 @@ namespace GoTB.UnitTests
                 }.AsQueryable()
                 );
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Remove(1);
 
@@ -303,7 +303,7 @@ namespace GoTB.UnitTests
                         .Returns(cart);
             var repoMock = new Mock<ICharacterRepository>();
 
-            var controller = new CartController(repoMock.Object, null, cartMock.Object, null);
+            var controller = new CartController(repoMock.Object, null, cartMock.Object, null, null);
 
             controller.Manage(1);
 
