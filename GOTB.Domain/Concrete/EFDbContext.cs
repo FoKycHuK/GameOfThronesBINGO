@@ -6,6 +6,8 @@ namespace GoTB.Domain.Concrete
     public class EFDbContext : DbContext
     {
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Vote> Votes { get; set; }
+        public DbSet<VoteItem> VoteItems { get; set; }
 
         public static void CreateDefaultsValues(EFDbContext context)
         {

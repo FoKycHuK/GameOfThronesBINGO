@@ -14,14 +14,17 @@ namespace GoTB.WebUI.Controllers
     public class CartController : Controller
     {
         private readonly ICharacterRepository repository;
+        private readonly IVoteRepository voteRepository;
         private readonly ICartProvider cartProvider;
         private readonly IWeekProvider weekProvider;
 
-        public CartController(ICharacterRepository rep, ICartProvider cartProvider, IWeekProvider weekProvider)
+        public CartController(ICharacterRepository rep, IVoteRepository voteRepository,
+            ICartProvider cartProvider, IWeekProvider weekProvider)
         {
             repository = rep;
             this.cartProvider = cartProvider;
             this.weekProvider = weekProvider;
+            this.voteRepository = voteRepository;
         }
 
         [HttpGet]
@@ -59,7 +62,7 @@ namespace GoTB.WebUI.Controllers
         [HttpPost]
         public ActionResult Submit()
         {
-            return null;
+            
         }
 
         public PartialViewResult CartInfo()
