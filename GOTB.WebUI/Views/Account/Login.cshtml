@@ -5,6 +5,7 @@
 }
 
 <h2>Авторизация</h2>
+@(ViewBag.Error ?? "")
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)

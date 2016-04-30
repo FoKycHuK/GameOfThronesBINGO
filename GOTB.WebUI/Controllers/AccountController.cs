@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using GoTB.WebUI.Infrastructure;
 using GoTB.WebUI.Infrastructure.Abstract;
 using GoTB.WebUI.Models;
 
@@ -32,5 +33,11 @@ namespace GoTB.WebUI.Controllers
             }
         }
 
+        [Authorize]
+        public ActionResult Logout()
+        {
+            authProvider.Logout();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
