@@ -8,6 +8,7 @@ using GoTB.Domain.Concrete;
 using Moq;
 using Ninject;
 using GoTB.Domain.Entities;
+using GoTB.WebUI.Infrastructure.Abstract;
 
 namespace GoTB.WebUI.Infrastructure
 {
@@ -43,6 +44,7 @@ namespace GoTB.WebUI.Infrastructure
 //            ninjectKernel.Bind<ICharacterRepository>().ToConstant(mock.Object);
             ninjectKernel.Bind<ICharacterRepository>().To<EfCharacterRepository>();
             ninjectKernel.Bind<ICartProvider>().To<CartProvider>();
+            ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }
