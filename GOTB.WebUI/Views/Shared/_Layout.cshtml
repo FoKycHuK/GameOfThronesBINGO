@@ -12,10 +12,14 @@
  </div>
  <div id="categories">
      @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
+     <br/>
      @Html.ActionLink("На главную", "Index", "Home") <br/>
+     <br/>
      @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
      <br/>
-     @Html.ActionLink("Выйти", "Logout", "Account")
+     @Html.ActionLink("Выйти", "Logout", "Account") <br/>
+     <br/>
+     @{ Html.RenderAction("SubmitButton", "Cart"); }
  </div>
  <div id="content">
  @RenderBody()

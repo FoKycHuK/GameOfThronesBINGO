@@ -46,6 +46,7 @@ namespace GoTB.WebUI.Infrastructure
             ninjectKernel.Bind<ICartProvider>().To<CartProvider>();
             ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
             ninjectKernel.Bind<IWeekProvider>().To<WeekProvider>();
+            ninjectKernel.Bind<IVoteRepository>().To<VoteDBRepository>();
         }
     }
 }

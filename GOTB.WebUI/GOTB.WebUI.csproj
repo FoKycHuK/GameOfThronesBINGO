@@ -259,6 +259,7 @@
     <Content Include="Views\Cart\CartInfo.cshtml" />
     <Content Include="Views\Cart\Manage.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Cart\SubmitButton.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>

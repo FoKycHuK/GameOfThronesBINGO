@@ -37,8 +37,6 @@ namespace GoTB.WebUI.Controllers
         [HttpPost]
         public ActionResult Manage(int id)
         {
-            ViewBag.CanVote = !User.Identity.IsAuthenticated || !IsUserAlreadyVote(User.Identity.Name);
-                
             if (!repository.Characters.Any(c => c.Id == id))
             {
                 ViewBag.Error = "Такого персонажа не существует!";
@@ -121,9 +119,11 @@ namespace GoTB.WebUI.Controllers
             return chs;
         }
 
-        private bool IsUserAlreadyVote(string userName)
+        public PartialViewResult SubmitButton(string userName)
         {
-            return voteRepository.Votes.Any(v => v.User == userName && v.Week == weekProvider.GetCurrentWeek());
+            var week = weekProvider.GetCurrentWeek();
+            return PartialView(!User.Identity.IsAuthenticated || 
+                !voteRepository.Votes.Any(v => v.User == userName && v.Week == week));
         }
     }
 }

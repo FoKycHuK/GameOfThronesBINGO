@@ -29,8 +29,8 @@ namespace GoTB.WebUI
 
             var context = new GoTB.Domain.Concrete.EFDbContext();
 
-            //context.Database.Delete();
-            //context.Database.CreateIfNotExists();
+            context.Database.Delete();
+            context.Database.CreateIfNotExists();
             if (!context.Characters.Any())
                 EFDbContext.CreateDefaultsValues(context);
             context.Characters.ToArray();

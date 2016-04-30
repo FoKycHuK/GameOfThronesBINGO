@@ -1,0 +1,13 @@
+﻿@model bool
+
+@if (@Model)
+{
+    using (@Html.BeginForm("Submit", "Cart", FormMethod.Post))
+    {
+        <input type="submit" value="Подтвердить!"/>
+    }
+}
+else
+{
+    <div>Вы уже проголосовали на этой неделе</div>
+}

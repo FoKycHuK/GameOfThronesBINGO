@@ -10,7 +10,7 @@ namespace GoTB.Domain.Entities
     public class Vote
     {
         [Key]
-        public int VoteID;
+        public int VoteID { get; set; }
         public string User { get; set; } // string ?
         public int Week { get; set; }
         public List<VoteItem> VoteItems { get; set; }
