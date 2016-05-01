@@ -55,6 +55,7 @@
     <Compile Include="Concrete\VoteDBRepository.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\UserProfile.cs" />
     <Compile Include="Entities\Vote.cs" />
     <Compile Include="Entities\VoteItem.cs" />

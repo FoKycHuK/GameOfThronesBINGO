@@ -1,0 +1,27 @@
+﻿@model GoTB.Domain.Entities.Character
+
+<div id="@("comment" + Model.Id)">
+    <table>
+        <tr>
+            <th>Время</th>
+            <th>Автор</th>
+            <th>Комментарий</th>
+        </tr>
+
+        @foreach (var comment in @Model.Comments.OrderByDescending(x => x.Time).Take(5))
+        {
+            <tr>
+                <td>@comment.Time</td>
+                <td>@comment.Author</td>
+                <td>@comment.Text</td>
+            </tr>
+        }
+    </table>
+    @using (Ajax.BeginForm("WriteComment", new AjaxOptions() { UpdateTargetId = "comment" + Model.Id }))
+    {
+        @Html.Hidden("chrId", Model.Id)
+        @Html.TextBox("comment");
+        <input type="submit" value="Написать" />
+    }
+
+</div>

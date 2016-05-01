@@ -9,6 +9,7 @@ namespace GoTB.Domain.Concrete
         public DbSet<Vote> Votes { get; set; }
         public DbSet<VoteItem> VoteItems { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public static void CreateDefaultsValues(EFDbContext context)
         {

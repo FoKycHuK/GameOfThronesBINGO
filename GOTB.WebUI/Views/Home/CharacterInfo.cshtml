@@ -7,33 +7,33 @@
     <p>
         <img class="character_img" src="@(GoTB.WebUI.Models.CharacterConstants.PathToImages + @Model.Character.ImageName)" alt="@Model.Character.Name" />
         <div class="param">
-            Возраст: @Model.Character.Age<br/>
-            @Html.EditorFor(m => m.Character.Gender, "Enum_fields") <br/>
-            @Html.EditorFor(m => m.Character.IsAlive, "Enum_fields")<br/>
+            Возраст: @Model.Character.Age<br />
+            @Html.EditorFor(m => m.Character.Gender, "Enum_fields") <br />
+            @Html.EditorFor(m => m.Character.IsAlive, "Enum_fields")<br />
             Стоимость: @Model.Character.Price
             @{ var bvm = new ButtonViewModel()
-               {
-                   Controller = "Cart",
-                   TextIfNotNeeded = "Вы уже проголосовали на этой неделе",
-                   HiddenParams = new Dictionary<string, string>() {{"id", Model.Character.Id.ToString()}, {"ajax", "#cartPoints"}}
-               }; }
-            @switch (Model.VoteType)
                 {
-                    case VoteType.CanVote:
-                        bvm.Method = "Manage";
-                        bvm.NeedToShowButton = true;
-                        bvm.TextButton = "Проголосовать!";
-                        break;
-                    case VoteType.AlreadyVoted:
-                        bvm.Method = "Remove";
-                        bvm.NeedToShowButton = true;
-                        bvm.TextButton = "Разголосовать!";
-                        break;
-                    default:
-                        bvm.NeedToShowButton = false;
-                        bvm.TextIfNotNeeded = "Вы не можете проголосовать сейчас";
-                        break;
-                }
+                    Controller = "Cart",
+                    TextIfNotNeeded = "Вы уже проголосовали на этой неделе",
+                    HiddenParams = new Dictionary<string, string>() { { "id", Model.Character.Id.ToString() }, { "ajax", "#cartPoints" } }
+                }; }
+            @switch (Model.VoteType)
+            {
+                case VoteType.CanVote:
+                    bvm.Method = "Manage";
+                    bvm.NeedToShowButton = true;
+                    bvm.TextButton = "Проголосовать!";
+                    break;
+                case VoteType.AlreadyVoted:
+                    bvm.Method = "Remove";
+                    bvm.NeedToShowButton = true;
+                    bvm.TextButton = "Разголосовать!";
+                    break;
+                default:
+                    bvm.NeedToShowButton = false;
+                    bvm.TextIfNotNeeded = "Вы не можете проголосовать сейчас";
+                    break;
+            }
             @{ Html.RenderAction("SubmitButton", "Cart", bvm); }
         </div>
         <div class="descr">
@@ -43,3 +43,5 @@
     <br />
 
 </div>
+
+@{ Html.RenderAction("WriteComment", "Home", new {character = @Model.Character}); }

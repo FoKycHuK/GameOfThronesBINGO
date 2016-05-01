@@ -279,6 +279,7 @@
     <Content Include="Views\Shared\EditorTemplates\Enum_fields.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\IsAlive.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Gender.cshtml" />
+    <None Include="Views\Home\WriteComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

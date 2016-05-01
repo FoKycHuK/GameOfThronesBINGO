@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using GoTB.Domain.Abstract;
+using GoTB.Domain.Concrete;
 using GoTB.WebUI.Models;
 using GoTB.Domain.Entities;
 using GoTB.WebUI.Infrastructure;
@@ -56,6 +58,28 @@ namespace GoTB.WebUI.Controllers
         public PartialViewResult CharacterInfo(CharacterViewModel characterViewModel)
         {
             return PartialView(characterViewModel);
+        }
+
+        [HttpGet]
+        public PartialViewResult WriteComment(Character chr)
+        {
+            return PartialView(chr);
+        }
+
+        [HttpPost]
+        public PartialViewResult WriteComment(string commentText, Character chr)
+        {
+            var context = new EFDbContext();
+            var user = User.Identity.IsAuthenticated ? User.Identity.Name : "Anon";
+            var comment = new Comment()
+            {
+                Author = user,
+                Text = commentText,
+                Time = DateTime.Now
+            };
+            context.Characters.First(c => c.Id == chr.Id).Comments.Add(comment);
+            context.SaveChanges();
+            return PartialView(chr);
         }
     }
 }

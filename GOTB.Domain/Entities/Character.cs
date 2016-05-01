@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 
 namespace GoTB.Domain.Entities
@@ -23,6 +24,10 @@ namespace GoTB.Domain.Entities
 
     public class Character
     {
+        public Character()
+        {
+            Comments = new List<Comment>();
+        }
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -37,5 +42,6 @@ namespace GoTB.Domain.Entities
         public IsAlive IsAlive { get; set; }
         public int PopularityPoints { get; set; }
         public string ImageName { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }
