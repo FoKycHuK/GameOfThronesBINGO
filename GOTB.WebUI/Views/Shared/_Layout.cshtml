@@ -20,6 +20,8 @@
     <br/>
     @{ Html.RenderAction("UserNameView", "Account"); }
     <br/>
+    @{ Html.RenderAction("AdminPanel", "Account"); }
+    <br />
     @{ Html.RenderAction("SubmitButton", "Cart", new
        {
            bvm = new ButtonViewModel()

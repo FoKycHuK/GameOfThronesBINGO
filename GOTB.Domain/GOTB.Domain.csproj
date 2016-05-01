@@ -47,9 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICharacterRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EfCharacterRepository.cs" />
     <Compile Include="Abstract\IVoteRepository.cs" />
+    <Compile Include="Concrete\UserDbRepository.cs" />
     <Compile Include="Concrete\VoteDBRepository.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Cart.cs" />

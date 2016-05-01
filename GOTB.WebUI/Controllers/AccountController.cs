@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using GoTB.Domain.Abstract;
 using GoTB.WebUI.Infrastructure;
 using GoTB.WebUI.Infrastructure.Abstract;
 using GoTB.WebUI.Models;
@@ -7,11 +9,13 @@ namespace GoTB.WebUI.Controllers
 {
     public class AccountController : Controller
     {
+        private IUserRepository repo;
         private IAuthProvider authProvider;
         private IUserProvider userProvider;
 
-        public AccountController(IAuthProvider auth, IUserProvider user)
+        public AccountController(IUserRepository userRepo, IAuthProvider auth, IUserProvider user)
         {
+            repo = userRepo;
             authProvider = auth;
             userProvider = user;
         }
@@ -46,6 +50,13 @@ namespace GoTB.WebUI.Controllers
         public PartialViewResult UserNameView()
         {
             return PartialView((object)userProvider.GetUserName(this));
+        }
+
+        public PartialViewResult AdminPanel()
+        {
+            var userName = userProvider.GetUserName(this);
+            var user = repo.UserProfiles.FirstOrDefault(u => u.UserName == userName);
+            return PartialView(user != null && user.IsAdmin);
         }
     }
 }
