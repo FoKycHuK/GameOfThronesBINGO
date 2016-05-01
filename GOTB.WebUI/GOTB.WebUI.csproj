@@ -172,6 +172,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\CharactersListViewModel.cs" />
+    <Compile Include="Models\SimpleFileView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +273,7 @@
     <Content Include="Views\CharacterEdit\Details.cshtml" />
     <Content Include="Views\CharacterEdit\Edit.cshtml" />
     <Content Include="Views\CharacterEdit\Index.cshtml" />
+    <None Include="Views\CharacterEdit\UploadImage.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
