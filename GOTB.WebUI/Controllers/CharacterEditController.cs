@@ -49,12 +49,9 @@ namespace MvcApplication1.Controllers
 
         [HttpPost]
         public ActionResult Create(Character character)
-        { 
-            var context = new EFDbContext();
-            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
-            {
+        {
+            if (IsNotAdmin())
                 return RedirectToAction("Login", "Account");
-            }
             if (ModelState.IsValid)
             {
                 db.Characters.Add(character);
@@ -84,11 +81,8 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Character character)
         {
-            var context = new EFDbContext();
-            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
-            {
+            if (IsNotAdmin())
                 return RedirectToAction("Login", "Account");
-            }
             if (ModelState.IsValid)
             {
                 db.Entry(character).State = EntityState.Modified;
@@ -117,11 +111,8 @@ namespace MvcApplication1.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            var context = new EFDbContext();
-            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
-            {
+            if (IsNotAdmin())
                 return RedirectToAction("Login", "Account");
-            }
             Character character = db.Characters.Find(id);
             db.Characters.Remove(character);
             db.SaveChanges();
@@ -132,6 +123,14 @@ namespace MvcApplication1.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        private bool IsNotAdmin()
+        {
+            var context = new EFDbContext();
+            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
+                return true;
+            return false;
         }
     }
 }
