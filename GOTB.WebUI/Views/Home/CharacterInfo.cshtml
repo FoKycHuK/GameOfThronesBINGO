@@ -8,8 +8,8 @@
         <img class="character_img" src="@(GoTB.WebUI.Models.CharacterConstants.PathToImages + @Model.Character.ImageName)" alt="@Model.Character.Name" />
         <div class="param">
             Возраст: @Model.Character.Age<br/>
-            @(Model.Character.IsMan ? "Мужчина" : "Женщина") <br/>
-            @(Model.Character.IsAlive ? "Еще пока что жив..." : "Умер")<br/>
+            @Html.EditorFor(m => m.Character.Gender, "Enum") <br/>
+            @(Model.Character.IsAlive)<br/>
             Стоимость: @Model.Character.Price
             @{ var bvm = new ButtonViewModel()
                {

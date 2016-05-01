@@ -26,7 +26,7 @@ namespace GoTB.WebUI.Models
         public static readonly Dictionary<FilterBy, Func<Character, bool>> Filters = new Dictionary<FilterBy, Func<Character, bool>>
         {
             {FilterBy.NoFilter, c => true},
-            {FilterBy.Alive, c => c.IsAlive},
+            {FilterBy.Alive, c => c.IsAlive == IsAlive.Alive},
             {FilterBy.PriceLessThenThree, c => c.Price < 3}
         };
     }
