@@ -30,7 +30,7 @@ namespace GoTB.Domain.Entities
 //        [UIHint("Enum")]
         public Gender Gender { get; set; }
         public int Age { get; set; }
-//        [UIHint("Enum")]
+        [UIHint("Enum")]
         public IsAlive IsAlive { get; set; }
         public int PopularityPoints { get; set; }
         public string ImageName { get; set; }

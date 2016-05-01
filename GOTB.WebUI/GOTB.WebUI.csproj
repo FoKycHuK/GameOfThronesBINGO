@@ -276,7 +276,8 @@
     <Content Include="Views\CharacterEdit\Index.cshtml" />
     <None Include="Views\CharacterEdit\UploadImage.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Enum_fields.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IsAlive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

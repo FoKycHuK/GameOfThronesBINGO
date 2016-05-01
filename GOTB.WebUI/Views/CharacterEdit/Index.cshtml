@@ -27,7 +27,7 @@
             @Html.DisplayNameFor(model => model.Age)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Alive)
+            @Html.DisplayNameFor(model => model.IsAlive)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PopularityPoints)
@@ -50,13 +50,15 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Gender)
+            @Html.EditorFor(modelItem => item.Gender, "Enum_fields")
+@*            @Html.DisplayFor(modelItem => item.Gender)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Age)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IsAlive)
+            @Html.EditorFor(modelItem => item.Gender, "Enum_fields")
+@*            @Html.DisplayFor(modelItem => item.IsAlive)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PopularityPoints)
