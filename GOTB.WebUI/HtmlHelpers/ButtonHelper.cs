@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Web.Mvc;
 using GoTB.WebUI.Models;
 
@@ -15,11 +14,22 @@ namespace GoTB.WebUI.HtmlHelpers
                 TagBuilder tagForm = new TagBuilder("form");
                 tagForm.Attributes["action"] = string.Format("/{0}/{1}", bvm.Controller, bvm.Method);
                 tagForm.Attributes["method"] = "post";
+                if (bvm.HiddenParams != null && bvm.HiddenParams.ContainsKey("ajax"))
+                {
+                    tagForm.Attributes["data-ajax-update"] = bvm.HiddenParams["ajax"];
+                    tagForm.Attributes["data-ajax-mode"] = "replace";
+                    tagForm.Attributes["data-ajax"] = "true";
+                    tagForm.Attributes["id"] = "form0";
+                }
+
+
                 var inner = new StringBuilder();
                 if (bvm.HiddenParams != null)
                 {
                     foreach (var hiddenParam in bvm.HiddenParams)
                     {
+                        if (hiddenParam.Key == "ajax")
+                            continue;
                         var tag = new TagBuilder("input");
                         tag.Attributes["type"] = "hidden";
                         tag.Attributes["id"] = tag.Attributes["name"] = hiddenParam.Key;

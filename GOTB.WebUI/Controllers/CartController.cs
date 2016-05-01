@@ -59,7 +59,8 @@ namespace GoTB.WebUI.Controllers
             }
             cart.Points -= price;
             cart.CharacterIds.Add(id);
-            return View(GetChoosenChsViewModels());
+            //return View(GetChoosenChsViewModels());
+            return PartialView("CartInfo", cart);
         }
 
         [Authorize]
@@ -115,7 +116,7 @@ namespace GoTB.WebUI.Controllers
             var price = repository.Characters.First(c => c.Id == id).Price;
             cart.CharacterIds.Remove(id);
             cart.Points += price;
-            return RedirectToAction("Manage");
+            return PartialView("CartInfo", cart);
         }
 
         private CharacterViewModel[] GetChoosenChsViewModels()

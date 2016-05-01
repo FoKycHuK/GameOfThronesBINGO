@@ -31,7 +31,7 @@ namespace GoTB.WebUI.Controllers
             if (authProvider.Authenticate(model.UserName, model.Password))
             {
 
-                return Redirect(returnUrl ?? Url.Action("Index", "Home"));
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -58,5 +58,13 @@ namespace GoTB.WebUI.Controllers
             var user = repo.UserProfiles.FirstOrDefault(u => u.UserName == userName);
             return PartialView(user != null && user.IsAdmin);
         }
+//
+//        public PartialViewResult QuickLogin()
+//        {
+//            return PartialView();
+//        }
+
+//        [HttpPost]
+//        public PartialViewResult QuickLogin
     }
 }

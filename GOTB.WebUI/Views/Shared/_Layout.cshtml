@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" type="text/css" rel="stylesheet"/>
+    <script src="~/Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
 <div id="header">
     <div class="title">Game of Thrones BINGO!</div>
 </div>
 <div id="categories">
-    @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
+    <div id="cartPoints">
+        @{ Html.RenderAction("CartInfo", "Cart"); }
+    </div>
     <br/>
     @Html.ActionLink("На главную", "Index", "Home") <br/>
     <br/>
@@ -21,7 +25,7 @@
     @{ Html.RenderAction("UserNameView", "Account"); }
     <br/>
     @{ Html.RenderAction("AdminPanel", "Account"); }
-    <br />
+    <br/>
     @{ Html.RenderAction("SubmitButton", "Cart", new
        {
            bvm = new ButtonViewModel()

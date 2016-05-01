@@ -15,36 +15,25 @@
                {
                    Controller = "Cart",
                    TextIfNotNeeded = "Вы уже проголосовали на этой неделе",
-                   HiddenParams = new Dictionary<string, string>() {{"id", Model.Character.Id.ToString()}}
+                   HiddenParams = new Dictionary<string, string>() {{"id", Model.Character.Id.ToString()}, {"ajax", "#cartPoints"}}
                }; }
             @switch (Model.VoteType)
-            {
-                case VoteType.CanVote:
-                    bvm.Method = "Manage";
-                    bvm.NeedToShowButton = true;
-                    bvm.TextButton = "Проголосовать!";
-//                    using (Html.BeginForm("Manage", "Cart"))
-//                    {
-//                        @Html.Hidden("id", Model.Character.Id)
-//                        <input type="submit" value="Проголосовать!"/>
-//                    }
-                    break;
-                case VoteType.AlreadyVoted:
-                    bvm.Method = "Remove";
-                    bvm.NeedToShowButton = true;
-                    bvm.TextButton = "Разголосовать!";
-@*                    using (Html.BeginForm("Remove", "Cart"))*@
-@*                    {*@
-@*                        @Html.Hidden("id", Model.Character.Id)*@
-@*                        <input type="submit" value="Разголосовать!"/>*@
-@*                    }*@
-                    break;
-                default:
-                    bvm.NeedToShowButton = false;
-                    bvm.TextIfNotNeeded = "Вы не можете проголосовать сейчас";
-@*                    <div>Вы не можете проголосовать сейчас</div>*@
-                    break;
-            }
+                {
+                    case VoteType.CanVote:
+                        bvm.Method = "Manage";
+                        bvm.NeedToShowButton = true;
+                        bvm.TextButton = "Проголосовать!";
+                        break;
+                    case VoteType.AlreadyVoted:
+                        bvm.Method = "Remove";
+                        bvm.NeedToShowButton = true;
+                        bvm.TextButton = "Разголосовать!";
+                        break;
+                    default:
+                        bvm.NeedToShowButton = false;
+                        bvm.TextIfNotNeeded = "Вы не можете проголосовать сейчас";
+                        break;
+                }
             @{ Html.RenderAction("SubmitButton", "Cart", bvm); }
         </div>
         <div class="descr">
