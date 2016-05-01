@@ -20,7 +20,7 @@
     @using (Ajax.BeginForm("WriteComment", new AjaxOptions() { UpdateTargetId = "comment" + Model.Id }))
     {
         @Html.Hidden("chrId", Model.Id)
-        @Html.TextBox("comment");
+        @Html.TextBox("commentText")
         <input type="submit" value="Написать" />
     }
 

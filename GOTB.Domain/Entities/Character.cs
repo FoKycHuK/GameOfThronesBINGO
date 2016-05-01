@@ -24,10 +24,6 @@ namespace GoTB.Domain.Entities
 
     public class Character
     {
-        public Character()
-        {
-            Comments = new List<Comment>();
-        }
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
@@ -42,6 +38,6 @@ namespace GoTB.Domain.Entities
         public IsAlive IsAlive { get; set; }
         public int PopularityPoints { get; set; }
         public string ImageName { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

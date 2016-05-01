@@ -67,7 +67,7 @@ namespace GoTB.WebUI.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult WriteComment(string commentText, Character chr)
+        public PartialViewResult WriteComment(string commentText, int chrId)
         {
             var context = new EFDbContext();
             var user = User.Identity.IsAuthenticated ? User.Identity.Name : "Anon";
@@ -77,9 +77,10 @@ namespace GoTB.WebUI.Controllers
                 Text = commentText,
                 Time = DateTime.Now
             };
-            context.Characters.First(c => c.Id == chr.Id).Comments.Add(comment);
+            var charr = context.Characters.First(c => c.Id == chrId);
+            charr.Comments.Add(comment);
             context.SaveChanges();
-            return PartialView(chr);
+            return PartialView(charr);
         }
     }
 }

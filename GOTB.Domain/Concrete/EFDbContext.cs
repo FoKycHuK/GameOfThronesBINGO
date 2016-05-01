@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using GoTB.Domain.Entities;
 
 namespace GoTB.Domain.Concrete
@@ -23,7 +25,13 @@ namespace GoTB.Domain.Concrete
                     IsAlive = IsAlive.Alive,
                     Gender = Gender.Male,
                     Price = 5,
-                    ImageName = "Tyrion_Lannister.jpg"
+                    ImageName = "Tyrion_Lannister.jpg",
+                    Comments = new List<Comment>
+                    {
+                        new Comment() { Author = "qweqwe", Time = DateTime.Now, Text = "kqwhfwqjhfb"},
+                        new Comment() { Author = "qweqwe", Time = DateTime.Now, Text = "kqwhfwqjhfb"},
+                        new Comment() { Author = "qweqwe", Time = DateTime.Now, Text = "kqwhfwqjhfb"},
+                    }
                 },
                 new Character
                 {
@@ -53,7 +61,8 @@ namespace GoTB.Domain.Concrete
                     IsAlive = IsAlive.Dead,
                     Gender = Gender.Male,
                     Price = 1,
-                    ImageName = "Sandor_Clegane.png"
+                    ImageName = "Sandor_Clegane.png",
+                    
                 },
             };
             context.Characters.AddRange(characters);
