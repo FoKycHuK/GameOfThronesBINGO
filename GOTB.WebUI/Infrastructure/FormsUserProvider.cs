@@ -11,7 +11,7 @@ namespace GoTB.WebUI.Infrastructure
     {
         public string GetUserName(Controller controller)
         {
-            return controller.User.Identity.Name;
+            return IsAuthentificated(controller) ? controller.User.Identity.Name : "";
         }
 
         public bool IsAuthentificated(Controller controller)

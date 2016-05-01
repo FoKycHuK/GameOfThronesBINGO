@@ -1,0 +1,13 @@
+﻿@model string
+    
+@if (string.IsNullOrEmpty(@Model))
+{
+    @Html.ActionLink("Войти", "Login", "Account") <br />
+}
+else
+{
+    <div>Добро пожаловать, @Model</div>
+    <br/>
+    @Html.ActionLink("Выйти", "Logout", "Account") <br />
+}
+

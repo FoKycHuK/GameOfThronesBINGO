@@ -87,10 +87,12 @@ namespace GoTB.WebUI.Controllers
             foreach (var chId in charecterIds)
             {
                 var chr = repository.Characters.First(x => x.Id == chId);
-                var voteItem = new VoteItem();
-                voteItem.Character = chr;
-                voteItem.Position = counter;
-                voteItem.Vote = vote;
+                var voteItem = new VoteItem
+                {
+                    Character = chr,
+                    Position = counter,
+                    Vote = vote
+                };
                 ans.Add(voteItem);
             }
             return ans;
@@ -118,10 +120,17 @@ namespace GoTB.WebUI.Controllers
 
         private CharacterViewModel[] GetChoosenChsViewModels()
         {
+            var choosen = voteRepository.Votes
+                .FirstOrDefault(c => c.User == userProvider.GetUserName(this) &&
+                                     c.Week == weekProvider.GetCurrentWeek());
+            if (choosen != null)
+                return choosen.VoteItems.Select(c =>
+                    new CharacterViewModel() {Character = c.Character, VoteType = VoteType.AlreadyVoted})
+                    .ToArray();
             var ids = cartProvider.GetCart(this).CharacterIds;
             var chs = ids.Select(id => repository.Characters.First(c => c.Id == id)) //todo:join
                 .Select(c => new CharacterViewModel() {Character = c, VoteType = VoteType.AlreadyVoted})
-                .ToArray(); 
+                .ToArray();
             return chs;
         }
 
@@ -130,9 +139,10 @@ namespace GoTB.WebUI.Controllers
             if (bvm == null)
                 bvm = new ButtonViewModel() {NeedToShowButton = false, TextIfNotNeeded = "Произошла ошибка."};
             var week = weekProvider.GetCurrentWeek();
+            var userName = userProvider.GetUserName(this);
             if (bvm.NeedToShowButton)
                 bvm.NeedToShowButton = !userProvider.IsAuthentificated(this) ||
-                                       !voteRepository.Votes.Any(v => v.User == userProvider.GetUserName(this) && v.Week == week);
+                                       !voteRepository.Votes.Any(v => v.User == userName && v.Week == week);
             return PartialView(bvm);
         }
     }

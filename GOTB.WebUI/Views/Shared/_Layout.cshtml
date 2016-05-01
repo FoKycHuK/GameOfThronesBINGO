@@ -17,8 +17,8 @@
      @Html.ActionLink("На главную", "Index", "Home") <br/>
      <br/>
      @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
-     <br/>
-     @Html.ActionLink("Выйти", "Logout", "Account") <br/>
+     <br />
+     @{ Html.RenderAction("UserNameView", "Account"); }
      <br/>
      @{ Html.RenderAction("SubmitButton", "Cart", new { bvm = new ButtonViewModel()
         {

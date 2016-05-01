@@ -7,10 +7,13 @@ namespace GoTB.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        IAuthProvider authProvider;
-        public AccountController(IAuthProvider auth)
+        private IAuthProvider authProvider;
+        private IUserProvider userProvider;
+
+        public AccountController(IAuthProvider auth, IUserProvider user)
         {
             authProvider = auth;
+            userProvider = user;
         }
 
         public ViewResult Login()
@@ -38,6 +41,11 @@ namespace GoTB.WebUI.Controllers
         {
             authProvider.Logout();
             return RedirectToAction("Index", "Home");
+        }
+
+        public PartialViewResult UserNameView()
+        {
+            return PartialView((object)userProvider.GetUserName(this));
         }
     }
 }
