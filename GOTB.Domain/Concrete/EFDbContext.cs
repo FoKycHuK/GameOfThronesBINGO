@@ -8,6 +8,7 @@ namespace GoTB.Domain.Concrete
         public DbSet<Character> Characters { get; set; }
         public DbSet<Vote> Votes { get; set; }
         public DbSet<VoteItem> VoteItems { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         public static void CreateDefaultsValues(EFDbContext context)
         {
@@ -55,6 +56,31 @@ namespace GoTB.Domain.Concrete
                 },
             };
             context.Characters.AddRange(characters);
+
+            var users = new[]
+            {
+                new UserProfile
+                {
+                    UserName = "a",
+                    IsAdmin = true
+                },
+                new UserProfile
+                {
+                    UserName = "b",
+                    IsAdmin = false
+                },
+                new UserProfile
+                {
+                    UserName = "c",
+                    IsAdmin = false
+                },
+                new UserProfile
+                {
+                    UserName = "d",
+                    IsAdmin = false
+                }
+            };
+            context.UserProfiles.AddRange(users);
             context.SaveChanges();
         }
     }

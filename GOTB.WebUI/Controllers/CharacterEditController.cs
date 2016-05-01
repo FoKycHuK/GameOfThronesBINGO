@@ -10,6 +10,7 @@ using GoTB.Domain.Concrete;
 
 namespace MvcApplication1.Controllers
 {
+    [Authorize]
     public class CharacterEditController : Controller
     {
         private EFDbContext db = new EFDbContext();
@@ -48,7 +49,12 @@ namespace MvcApplication1.Controllers
 
         [HttpPost]
         public ActionResult Create(Character character)
-        {
+        { 
+            var context = new EFDbContext();
+            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.Characters.Add(character);
@@ -78,6 +84,11 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Character character)
         {
+            var context = new EFDbContext();
+            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(character).State = EntityState.Modified;
@@ -106,6 +117,11 @@ namespace MvcApplication1.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
+            var context = new EFDbContext();
+            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             Character character = db.Characters.Find(id);
             db.Characters.Remove(character);
             db.SaveChanges();
