@@ -47,8 +47,17 @@ namespace GoTB.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public PartialViewResult UserNameView()
+        public PartialViewResult QuickLogin()
         {
+            return PartialView((object)userProvider.GetUserName(this));
+        }
+
+        [HttpPost]
+        public ActionResult QuickLogin(string userName, string password)
+        {
+            if (authProvider.Authenticate(userName, password))
+                return PartialView((object)userName);
+            ViewBag.Error = "Неверное имя пользователя или пароль";
             return PartialView((object)userProvider.GetUserName(this));
         }
 
@@ -58,13 +67,5 @@ namespace GoTB.WebUI.Controllers
             var user = repo.UserProfiles.FirstOrDefault(u => u.UserName == userName);
             return PartialView(user != null && user.IsAdmin);
         }
-//
-//        public PartialViewResult QuickLogin()
-//        {
-//            return PartialView();
-//        }
-
-//        [HttpPost]
-//        public PartialViewResult QuickLogin
     }
 }

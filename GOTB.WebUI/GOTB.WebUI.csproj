@@ -268,7 +268,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Cart\SubmitButton.cshtml" />
     <None Include="Views\Account\AdminPanel.cshtml" />
-    <None Include="Views\Account\UserNameView.cshtml" />
+    <None Include="Views\Account\QuickLogin.cshtml" />
     <Content Include="Views\CharacterEdit\Create.cshtml" />
     <Content Include="Views\CharacterEdit\Delete.cshtml" />
     <Content Include="Views\CharacterEdit\Details.cshtml" />

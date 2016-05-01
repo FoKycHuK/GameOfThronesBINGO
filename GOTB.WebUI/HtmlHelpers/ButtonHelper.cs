@@ -19,7 +19,7 @@ namespace GoTB.WebUI.HtmlHelpers
                     tagForm.Attributes["data-ajax-update"] = bvm.HiddenParams["ajax"];
                     tagForm.Attributes["data-ajax-mode"] = "replace";
                     tagForm.Attributes["data-ajax"] = "true";
-                    tagForm.Attributes["id"] = "form0";
+                    tagForm.Attributes["id"] = "form1";
                 }
 
 

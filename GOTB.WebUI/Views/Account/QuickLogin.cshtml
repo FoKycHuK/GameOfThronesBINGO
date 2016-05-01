@@ -1,0 +1,26 @@
+﻿@model string
+
+<div id="loginForm">
+    @ViewBag.Error
+    <br/>
+    @if (string.IsNullOrEmpty(@Model))
+    {
+        using (Ajax.BeginForm("QuickLogin", new AjaxOptions() {UpdateTargetId = "loginForm"}))
+        {
+            <span>Введите имя: </span>
+            @Html.TextBox("userName")
+            <br/>
+            <span>Введите пароль: </span>
+            @Html.Password("password")
+            <input type="submit" value="Войти"/>
+        }
+@*    @Html.ActionLink("Войти", "Login", "Account") <br />*@
+    }
+    else
+    {
+        <div>Добро пожаловать, @Model</div>
+        <br/>
+        @Html.ActionLink("Выйти", "Logout", "Account")
+        <br/>
+    }
+</div>
