@@ -120,9 +120,11 @@ namespace GoTB.WebUI.Controllers
 
         private CharacterViewModel[] GetChoosenChsViewModels()
         {
+            var username = userProvider.GetUserName(this);
+            var week = weekProvider.GetCurrentWeek();
             var choosen = voteRepository.Votes
-                .FirstOrDefault(c => c.User == userProvider.GetUserName(this) &&
-                                     c.Week == weekProvider.GetCurrentWeek());
+                .FirstOrDefault(c => c.User == username &&
+                                     c.Week == week);
             if (choosen != null)
                 return choosen.VoteItems.Select(c =>
                     new CharacterViewModel() {Character = c.Character, VoteType = VoteType.AlreadyVoted})

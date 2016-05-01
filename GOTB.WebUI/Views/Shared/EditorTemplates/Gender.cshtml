@@ -1,0 +1,11 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using GoTB.Domain.Entities
+@using GoTB.WebUI.Infrastructure
+@model GoTB.Domain.Entities.Gender
+
+@{
+    var a = ((Gender[])Enum.GetValues(typeof(Gender))).Select(x => x.GetAttribute<DisplayAttribute>().Name);
+}
+@Html.DropDownListFor(m => m,
+ new SelectList(a,
+ Model.ToString()))

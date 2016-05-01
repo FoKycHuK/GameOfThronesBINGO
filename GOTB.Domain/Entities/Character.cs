@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.IO;
 
 namespace GoTB.Domain.Entities
 {
@@ -27,10 +28,12 @@ namespace GoTB.Domain.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
-//        [UIHint("Enum")]
+        [UIHint("Enum")]
+        [Display(Name = "Пол", AutoGenerateField = true, AutoGenerateFilter = true)]
         public Gender Gender { get; set; }
         public int Age { get; set; }
         [UIHint("Enum")]
+        [Display(Name = "Состояние", AutoGenerateField = true, AutoGenerateFilter = true)]
         public IsAlive IsAlive { get; set; }
         public int PopularityPoints { get; set; }
         public string ImageName { get; set; }
