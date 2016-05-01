@@ -1,0 +1,30 @@
+﻿@using GoTB.WebUI.Models
+@model GoTB.Domain.Entities.Character[]
+
+@{
+    ViewBag.Title = "Загрузка картинки";
+}
+
+<h4>Выбирите персонажа, для которого загрузить картинку: </h4>
+@using (Html.BeginForm("UploadImage", "CharacterEdit", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+{
+    @Html.DropDownList("charId", @Model.Select(c => new SelectListItem() {Text = c.Name, Value = c.Id.ToString()}))
+    <br/>
+    <br/>
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="Email">
+                Загрузите файл:
+            </label>
+            <div class="controls">
+                @Html.TextBox("UploadedFile", new SimpleFileView(), new { type = "file", @class = "input-xlarge" })
+                @Html.ValidationMessage("UploadedFile")
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Загрузить
+            </button>
+        </div>
+    </fieldset>
+}

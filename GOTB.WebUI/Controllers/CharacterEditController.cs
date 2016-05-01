@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using GoTB.Domain.Entities;
 using GoTB.Domain.Concrete;
+using GoTB.WebUI.Models;
+using System.IO;
 
 namespace MvcApplication1.Controllers
 {
@@ -50,7 +52,7 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Create(Character character)
         {
-            if (IsNotAdmin())
+            if (!IsAdmin())
                 return RedirectToAction("Login", "Account");
             if (ModelState.IsValid)
             {
@@ -81,7 +83,7 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Edit(Character character)
         {
-            if (IsNotAdmin())
+            if (!IsAdmin())
                 return RedirectToAction("Login", "Account");
             if (ModelState.IsValid)
             {
@@ -111,12 +113,31 @@ namespace MvcApplication1.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            if (IsNotAdmin())
+            if (!IsAdmin())
                 return RedirectToAction("Login", "Account");
             Character character = db.Characters.Find(id);
             db.Characters.Remove(character);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult UploadImage()
+        {
+            var characterWithoutImage = db.Characters.ToArray(); 
+            return View(characterWithoutImage);
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(SimpleFileView fileView, int charId)
+        {
+            if (!IsAdmin())
+                return RedirectToAction("Login", "Account");
+            var basePath = AppDomain.CurrentDomain.BaseDirectory + @"Content\Images\";
+            var fileName = fileView.UploadedFile.FileName;
+            fileView.UploadedFile.SaveAs(basePath + fileName);
+            db.Characters.First(c => c.Id == charId).ImageName = fileName;
+            db.SaveChanges();
+            return RedirectToAction("UploadImage");
         }
 
         protected override void Dispose(bool disposing)
@@ -125,12 +146,9 @@ namespace MvcApplication1.Controllers
             base.Dispose(disposing);
         }
 
-        private bool IsNotAdmin()
+        private bool IsAdmin()
         {
-            var context = new EFDbContext();
-            if (context.UserProfiles.Count(x => x.UserName == User.Identity.Name) < 0)
-                return true;
-            return false;
+            return db.UserProfiles.Any(x => x.UserName == User.Identity.Name && x.IsAdmin);
         }
     }
 }

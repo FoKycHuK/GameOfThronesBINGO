@@ -172,6 +172,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Models\CharactersListViewModel.cs" />
+    <Compile Include="Models\SimpleFileView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -265,12 +266,14 @@
     <Content Include="Views\Cart\Manage.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Cart\SubmitButton.cshtml" />
+    <None Include="Views\Account\AdminPanel.cshtml" />
     <None Include="Views\Account\UserNameView.cshtml" />
     <Content Include="Views\CharacterEdit\Create.cshtml" />
     <Content Include="Views\CharacterEdit\Delete.cshtml" />
     <Content Include="Views\CharacterEdit\Details.cshtml" />
     <Content Include="Views\CharacterEdit\Edit.cshtml" />
     <Content Include="Views\CharacterEdit\Index.cshtml" />
+    <None Include="Views\CharacterEdit\UploadImage.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
   </ItemGroup>
