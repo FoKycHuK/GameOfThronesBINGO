@@ -148,6 +148,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CharacterEditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -265,6 +266,11 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Cart\SubmitButton.cshtml" />
     <None Include="Views\Account\UserNameView.cshtml" />
+    <Content Include="Views\CharacterEdit\Create.cshtml" />
+    <Content Include="Views\CharacterEdit\Delete.cshtml" />
+    <Content Include="Views\CharacterEdit\Details.cshtml" />
+    <Content Include="Views\CharacterEdit\Edit.cshtml" />
+    <Content Include="Views\CharacterEdit\Index.cshtml" />
     <None Include="Views\Home\CharacterInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>

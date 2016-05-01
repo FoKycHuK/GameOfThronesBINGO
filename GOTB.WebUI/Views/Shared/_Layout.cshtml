@@ -2,35 +2,40 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="utf-8" />
- <meta name="viewport" content="width=device-width" />
- <title>@ViewBag.Title</title>
- <link href="~/Content/Site.css" type="text/css" rel="stylesheet" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
- <div id="header">
- <div class="title">Game of Thrones BINGO!</div>
- </div>
- <div id="categories">
-     @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
-     <br/>
-     @Html.ActionLink("На главную", "Index", "Home") <br/>
-     <br/>
-     @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
-     <br />
-     @{ Html.RenderAction("UserNameView", "Account"); }
-     <br/>
-     @{ Html.RenderAction("SubmitButton", "Cart", new { bvm = new ButtonViewModel()
-        {
-            Controller = "Cart",
-            Method = "Submit",
-            TextButton = "Подтвердить выбор",
-            TextIfNotNeeded = "Вы уже сделали окончательный выбор на этой неделе",
-            NeedToShowButton = true
-        } }); }
- </div>
- <div id="content">
- @RenderBody()
- </div>
+<div id="header">
+    <div class="title">Game of Thrones BINGO!</div>
+</div>
+<div id="categories">
+    @{ Html.RenderAction("CartInfo", "Cart"); } <br/>
+    <br/>
+    @Html.ActionLink("На главную", "Index", "Home") <br/>
+    <br/>
+    @Html.ActionLink("Посмотреть выбранных", "Manage", "Cart") <br/>
+    <br/>
+    @{ Html.RenderAction("UserNameView", "Account"); }
+    <br/>
+    @{ Html.RenderAction("SubmitButton", "Cart", new
+       {
+           bvm = new ButtonViewModel()
+           {
+               Controller = "Cart",
+               Method = "Submit",
+               TextButton = "Подтвердить выбор",
+               TextIfNotNeeded = "Вы уже сделали окончательный выбор на этой неделе",
+               NeedToShowButton = true
+           }
+       }); }
+</div>
+<div id="content">
+    @RenderBody()
+    @RenderSection("Scripts", false)
+</div>
 </body>
 </html>
+
