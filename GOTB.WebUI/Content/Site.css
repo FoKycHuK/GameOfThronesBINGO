@@ -86,13 +86,13 @@ DIV#header
 DIV#content
 {
  border-left: 2px solid gray;
- margin-left: 9em;
+ margin-left: 13em;
  padding: 1em;
 }
 DIV#categories
 {
  float: left;
- width: 8em;
+ width: 13em;
  padding: .3em;
 }
 DIV.item
