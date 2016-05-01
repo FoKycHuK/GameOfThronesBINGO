@@ -1,6 +1,6 @@
-﻿@using GoTB.WebUI.Models
+﻿@using System.ComponentModel.DataAnnotations
+@using GoTB.WebUI.Infrastructure
+@using GoTB.WebUI.Models
 @model Enum
 
-@{
-//    Model.GetAttribute<Display>()CharacterConstants.GetAttribute(Model);
-}
+@(Model.GetAttribute<DisplayAttribute>().Name)

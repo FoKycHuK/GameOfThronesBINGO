@@ -9,7 +9,7 @@
         <div class="param">
             Возраст: @Model.Character.Age<br/>
             @Html.EditorFor(m => m.Character.Gender, "Enum") <br/>
-            @(Model.Character.IsAlive)<br/>
+            @Html.EditorFor(m => m.Character.IsAlive, "Enum")<br/>
             Стоимость: @Model.Character.Price
             @{ var bvm = new ButtonViewModel()
                {

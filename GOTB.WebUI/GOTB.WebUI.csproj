@@ -159,6 +159,7 @@
     <Compile Include="Infrastructure\Abstract\IUserProvider.cs" />
     <Compile Include="Infrastructure\CartHelperMethods.cs" />
     <Compile Include="Infrastructure\CartProvider.cs" />
+    <Compile Include="Infrastructure\EnumExt.cs" />
     <Compile Include="Infrastructure\FormsAuthProvider.cs" />
     <Compile Include="Infrastructure\Abstract\ICartProvider.cs" />
     <Compile Include="Infrastructure\Abstract\IWeekProvider.cs" />
